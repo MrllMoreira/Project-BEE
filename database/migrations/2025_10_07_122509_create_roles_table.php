@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string("nome")->unique();
-            $table->string("descricao"); // caso mostre a funcao que cada cargo tem o melhor era mudar o nome dessa coluna ou deixar a descricao nullabe
             $table->timestamps();
         });
     }

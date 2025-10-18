@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignId('marca_id')->constrained('marcas_equipamentos');
             $table->foreignId('status_id')->constrained('equipamentos_status');
             $table->foreignId('inventario_id')->constrained('inventario');
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete(); // deixar nulo caso o usuario seja deletado
-            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+
             $table->timestamps();
 
         });

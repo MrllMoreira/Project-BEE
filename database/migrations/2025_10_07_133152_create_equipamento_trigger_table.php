@@ -19,8 +19,6 @@ return new class extends Migration
             
             $table->foreignId('equipamento_id')->constrained('equipamentos')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            // $table->foreignId('created_by')->nullable()->constrained('users'); // essas colunas devem existir ou em equipamentos, ou em equipamento_trigger, não os dois.
-            // $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
 
         });
