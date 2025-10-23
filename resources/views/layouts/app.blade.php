@@ -23,29 +23,35 @@
     <body class="font-sans antialiased ">
         <x-banner />
 
-        <div class="min-h-screen p-16 bg-gray-100 ">
-            <div class="flex h-[780px] bg-white border border-gray-200 shadow-md rounded-2xl">
+        <div class="fixed top-4 right-6 ">
+            @livewire('profile')
+        </div>
+        <div class="flex flex-col h-screen p-6 pt-20 bg-gray-100">
+            <x-banner />
+            <div class="flex flex-1 overflow-hidden bg-white border border-gray-200 shadow-md rounded-2xl">
                 @livewire('navigation-menu')
 
-                <!-- Page Heading -->
-                @if (isset($header))
-                    <header class="bg-white shadow">
-                        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                            {{ $header }}
-                        </div>
-                    </header>
-                @endif
+                <div class="flex flex-col flex-1">
+                    <!-- Page Heading -->
+                    @if (isset($header))
+                        <header class="bg-white shadow">
+                            <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                                {{ $header }}
+                            </div>
+                        </header>
+                    @endif
 
-                <!-- Page Content -->
-                <main   class="flex-1 h-full max-w-full bg-gray-100">
-
-                    {{ $slot }}
-                </main>
+                    <!-- Page Content -->
+                    <main class="flex-1 pt-4 overflow-auto bg-gray-100 scrollbar-custom">
+                        {{ $slot }}
+                    </main>
+                </div>
             </div>
 
             @stack('modals')
-
             @livewireScripts
-            </div>
+        </div>
+
+
     </body>
 </html>

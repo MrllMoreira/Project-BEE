@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Documentos\DocumentosIndex;
 use App\Livewire\Index;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,5 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', Index::class)->name('dashboard');
+
+Route::get('/documentos', DocumentosIndex::class)->name('documentos');  

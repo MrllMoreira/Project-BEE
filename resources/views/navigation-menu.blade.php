@@ -218,31 +218,66 @@
                 </div>
             </div>
         </div> --}}
-        <section class="w-[227px] ">
-            <div class=" bg-[#F9F9F9]  h-[780px] p-6 shadow-md ">
+        <section class="w-[179px] ">
+            <div class=" bg-[#F9F9F9]   h-screen p-6 shadow-md ">
                 <div class="flex justify-center mb-12">
-                    <div class="rounded-full w-[66px] h-[66px] bg-white">
-
+                    <div class="">
+                        <img class="rounded-full w-[66px] h-[66px]" src="{{ asset('storage/img/logo.png') }}" >
                     </div>
                 </div>
                <x-ts-input class="flex items-center h-6 text-sm border border-gray-100" placeholder="Pesquisar..."  ></x-ts-input>
 
                <h4 class="mt-12 text-sm text-gray-500 ">Menu</h4>
-               <div class="flex flex-col w-full gap-3 mt-4 ml-3 text-xs">
+               <div class="flex flex-col w-full gap-6 mt-4 ml-3 text-xs">
 
-                <button href="" class="z-50 px-2 flex items-center h-12 gap-1  font-bold text-gray-800 transition-all w-[150px] focus:w-[220px]
-                 ease-in-out duration-500 hover:bg-gray-100 rounded-r-full focus:text-[#FDC029] focus:bg-[#273333] cursor-pointer text-sm">
+                @php
+                $isActiveDashboard = request()->routeIs('dashboard');
+                $isActiveDocumentos = request()->routeIs('documentos');
+                $isActiveInventario = request()->routeIs('inventario');
+                @endphp
+
+                <a href="{{ route('dashboard') }}" class="z-50 flex items-center h-8 gap-1 font-bold text-gray-800
+                    transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
+                    px-2 w-[150px]
+                    {{ $isActiveDashboard ? 'activeDashboard' : '' }}">
                     <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
                     <p>Dashboard</p>
-                </button>
+                </a>
 
-                <button href="" class="px-2 z-50 flex items-center h-12 gap-1 font-bold text-gray-800 transition-all w-[150px] focus:w-[200px]
-                ease-in-out duration-500 hover:bg-gray-100 rounded-r-full focus:text-[#FDC029] focus:bg-[#273333] cursor-pointer text-sm">
-                    <x-ts-icon class="w-6 h-6" icon="document" outline/>
-                    <p>Documentos</p>
-                </button>
+                <style>
+                    a {
+                        width: 150px;
+                    }
+                    a:hover,
+                    a.activeDashboard {
+                        width: 180px;
+                        background-color: #273333;
+                        color: #FDC029;
+                    }
+                </style>
 
-                <button href="" class="px-2  z-50 flex items-center h-12 gap-1 font-bold text-gray-800 transition-all w-[150px] focus:w-[200px]
+
+                <a href="{{ route('documentos') }}" class="z-50 flex items-center h-8 gap-1 font-bold text-gray-800
+                transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
+                px-2 w-[150px]
+                {{ $isActiveDocumentos ? 'activeDocumentos' : '' }}">
+                <x-ts-icon class="w-6 h-6" icon="document" outline/>
+                <p>Documentos</p>
+                </a>
+                
+                <style>
+                    a {
+                        width: 150px;
+                    }
+                    a:hover,
+                    a.activeDocumentos {
+                        width: 180px;
+                        background-color: #273333;
+                        color: #FDC029;
+                    }
+                </style>
+
+                <button href="" class="px-2  z-50 flex items-center h-8 gap-1 font-bold text-gray-800 transition-all w-[150px] focus:w-[180px]
                 ease-in-out duration-500 hover:bg-gray-100 rounded-r-full focus:text-[#FDC029] focus:bg-[#273333] cursor-pointer text-sm">
                     <x-ts-icon class="w-6 h-6" icon="inbox-arrow-down" outline/>
                     <p>Inventário</p>
