@@ -4,6 +4,9 @@ import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    presets: [ 
+        require('./vendor/tallstackui/tallstackui/tailwind.config.js') 
+    ],
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -12,6 +15,7 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./resources/views/livewire/**/*.php",
+        './vendor/tallstackui/tallstackui/src/**/*.php', 
     ],
 
     theme: {
