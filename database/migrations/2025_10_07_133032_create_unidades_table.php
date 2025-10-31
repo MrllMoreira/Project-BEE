@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique(); //deve ser unico
             
             $table->foreignId('unidade_tipo_id')->constrained('unidades_tipo');
-            $table->foreignId('endereco_id')->constrained('endereco');
+            $table->foreignId('endereco_id')->constrained('enderecos');
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');
             $table->string('responsavel')->constrained('users');
