@@ -11,7 +11,7 @@ class Endereco extends Model
     use HasFactory;
 
 
-    protected $table = 'endereco';
+    protected $table = 'enderecos';
 
     protected $fillable = [
         'uf',
