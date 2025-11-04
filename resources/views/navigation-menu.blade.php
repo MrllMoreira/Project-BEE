@@ -1,5 +1,25 @@
 
 <div>
+    <style>
+        a {
+            width: 140px;
+        }
+        a:hover,
+        a.activeDashboard , a.activeDocumentos, a.activeInventario  {
+            width: 140px;
+            background-color: #273333;
+            color: #FDC029;
+        }
+    </style>
+    @php
+        $isActiveDashboard = request()->routeIs('dashboard');
+        $isActiveDocumentos = request()->routeIs('documentos');
+        $isActiveInventario = request()->routeIs('inventario');
+        $aClass = "z-50 flex items-center h-8 gap-1 font-bold text-gray-800
+        transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
+        px-2 w-[140px]"
+        
+    @endphp
     <nav x-data="{ open: false }" class="bg-white border-b border-gray-200 rounded-2xl">
         {{-- <!-- Primary Navigation Menu -->
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -218,11 +238,14 @@
                 </div>
             </div>
         </div> --}}
+
+        
         <section class="w-[179px] ">
+            
             <div class=" bg-[#F9F9F9]   h-screen p-6 shadow-md ">
                 <div class="flex justify-center mb-12">
                     <div class="">
-                        <img class="rounded-full w-[66px] h-[66px]" src="{{ asset('storage/img/logo.png') }}" >
+                        <img class="rounded-full w-[66px] h-[66px]" src="{{ asset('storage/img logo.png') }}" >
                     </div>
                 </div>
                <x-ts-input class="flex items-center h-6 text-sm border border-gray-100" placeholder="Pesquisar..."  ></x-ts-input>
@@ -230,61 +253,45 @@
                <h4 class="mt-12 text-sm text-gray-500 ">Menu</h4>
                <div class="flex flex-col w-full gap-6 mt-4 ml-3 text-xs">
 
-                @php
-                $isActiveDashboard = request()->routeIs('dashboard');
-                $isActiveDocumentos = request()->routeIs('documentos');
-                $isActiveInventario = request()->routeIs('inventario');
-                @endphp
-
-                <a href="{{ route('dashboard') }}" class="z-50 flex items-center h-8 gap-1 font-bold text-gray-800
-                    transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
-                    px-2 w-[150px]
+            
+                <a href="{{ route('dashboard') }}" class="{{$aClass}} 
                     {{ $isActiveDashboard ? 'activeDashboard' : '' }}">
                     <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
                     <p>Dashboard</p>
                 </a>
 
-                <style>
-                    a {
-                        width: 150px;
-                    }
-                    a:hover,
-                    a.activeDashboard {
-                        width: 180px;
-                        background-color: #273333;
-                        color: #FDC029;
-                    }
-                </style>
 
-
-                <a href="{{ route('documentos') }}" class="z-50 flex items-center h-8 gap-1 font-bold text-gray-800
-                transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
-                px-2 w-[150px]
+                <a href="{{ route('documentos') }}" class="{{$aClass}} 
                 {{ $isActiveDocumentos ? 'activeDocumentos' : '' }}">
                 <x-ts-icon class="w-6 h-6" icon="document" outline/>
                 <p>Documentos</p>
                 </a>
                 
-                <style>
-                    a {
-                        width: 150px;
-                    }
-                    a:hover,
-                    a.activeDocumentos {
-                        width: 180px;
-                        background-color: #273333;
-                        color: #FDC029;
-                    }
-                </style>
 
-                <button href="" class="px-2  z-50 flex items-center h-8 gap-1 font-bold text-gray-800 transition-all w-[150px] focus:w-[180px]
-                ease-in-out duration-500 hover:bg-gray-100 rounded-r-full focus:text-[#FDC029] focus:bg-[#273333] cursor-pointer text-sm">
+                <a  class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}"">
                     <x-ts-icon class="w-6 h-6" icon="inbox-arrow-down" outline/>
                     <p>Inventário</p>
-                </button>
+                </a>
 
+                @if (Auth::user()->roles_id == 3)
+                    <a class="{{$aClass}}">
+                        <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
+                        <p>Unidades</p>
+                    </a>
+                @endif
+                @if (Auth::user()->roles_id == 1)
+                    <a class="{{$aClass}}">
+                        <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
+                        <p>Unidades</p>
+                    </a>
+                    <a class="{{$aClass}} ">
+                        <x-ts-icon class="w-6 h-6" icon="document" outline/>
+                        <p>Usuários</p>
+                    </a>
+                @endif
                </div>
             </div>
         </section>
     </nav>
 </div>
+
