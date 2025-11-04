@@ -29,7 +29,7 @@
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
 
-                    <img src="{{ $this->user->profile_photo_url}}"alt="{{ $this->user->name }}" class="object-cover rounded-full size-20">
+                    <img src="{{ $this->user->profile_photo_url}}"alt="{{ $this->user->nome }}" class="object-cover rounded-full size-20">
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -56,7 +56,7 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="block w-full mt-1" wire:model="state.name" required autocomplete="name" />
+            <x-input id="name" type="text" class="block w-full mt-1" wire:model="state.nome" required autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
 
