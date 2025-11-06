@@ -244,12 +244,12 @@
             
             <div class=" bg-[#F9F9F9]   h-screen p-6 shadow-md ">
                 <div class="flex justify-center mb-12">
-                    <div class="">
+                    <div>
                         <img class="rounded-full w-[66px] h-[66px]" src="{{ asset('storage/img logo.png') }}" >
                     </div>
                 </div>
                <x-ts-input class="flex items-center h-6 text-sm border border-gray-100" placeholder="Pesquisar..."  ></x-ts-input>
-
+            
                <h4 class="mt-12 text-sm text-gray-500 ">Menu</h4>
                <div class="flex flex-col w-full gap-6 mt-4 ml-3 text-xs">
 
@@ -264,11 +264,11 @@
                 <a href="{{ route('documentos') }}" class="{{$aClass}} 
                 {{ $isActiveDocumentos ? 'activeDocumentos' : '' }}">
                 <x-ts-icon class="w-6 h-6" icon="document" outline/>
-                <p>Documentos</p>
+                    <p>Documentos</p>
                 </a>
                 
 
-                <a  class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}"">
+                <a href="{{ route('inventario') }}" class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}"">
                     <x-ts-icon class="w-6 h-6" icon="inbox-arrow-down" outline/>
                     <p>Inventário</p>
                 </a>

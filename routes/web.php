@@ -2,6 +2,7 @@
 
 use App\Livewire\Documentos\DocumentosIndex;
 use App\Livewire\Index;
+use App\Livewire\Inventario\InventarioIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,3 +23,5 @@ Route::get('/', function () {
 Route::get('/dashboard', Index::class)->name('dashboard');
 
 Route::get('/documentos', DocumentosIndex::class)->name('documentos');  
+
+Route::get('/inventario', InventarioIndex::class)->name('inventario');  
