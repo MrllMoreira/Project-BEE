@@ -3,13 +3,14 @@
 namespace App\Livewire\Inventario;
 
 use App\Models\Inventario;
-use App\Models\User;
+use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class InventarioIndex extends Component
 {
-    public ?int $quantity = 10; 
+    use WithPagination;
+    public int $quantity = 10; 
  
     public ?string $search = null; 
     public $statusFilter = null;

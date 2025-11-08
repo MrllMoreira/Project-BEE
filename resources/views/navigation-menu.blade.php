@@ -5,7 +5,7 @@
             width: 140px;
         }
         a:hover,
-        a.activeDashboard , a.activeDocumentos, a.activeInventario  {
+        a.activeDashboard , a.activeDocumentos, a.activeInventario, a.activeUnidade, a.activeUsuario  {
             width: 140px;
             background-color: #273333;
             color: #FDC029;
@@ -15,6 +15,8 @@
         $isActiveDashboard = request()->routeIs('dashboard');
         $isActiveDocumentos = request()->routeIs('documentos');
         $isActiveInventario = request()->routeIs('inventario');
+        $isActiveUnidade = request()->routeIs('unidade');
+        $isActiveUsuario = request()->routeIs('usuario');
         $aClass = "z-50 flex items-center h-8 gap-1 font-bold text-gray-800
         transition-all ease-in-out duration-500 rounded-r-full cursor-pointer text-sm
         px-2 w-[140px]"
@@ -268,23 +270,19 @@
                 </a>
                 
 
-                <a href="{{ route('inventario') }}" class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}"">
+                <a href="{{ route('inventario') }}" class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}">
                     <x-ts-icon class="w-6 h-6" icon="inbox-arrow-down" outline/>
                     <p>Inventário</p>
                 </a>
 
-                @if (Auth::user()->roles_id == 3)
-                    <a class="{{$aClass}}">
+                @if (Auth::user()->roles_id == 3 || Auth::user()->roles_id == 1)
+                    <a href="{{ route('unidade') }}"  class="{{$aClass}}  {{ $isActiveUnidade ? 'activeUnidade' : '' }}">
                         <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
                         <p>Unidades</p>
                     </a>
                 @endif
                 @if (Auth::user()->roles_id == 1)
-                    <a class="{{$aClass}}">
-                        <x-ts-icon class="w-6 h-6" icon="chart-pie" outline/>
-                        <p>Unidades</p>
-                    </a>
-                    <a class="{{$aClass}} ">
+                    <a href="{{ route('usuario') }}"  class="{{$aClass}} {{ $isActiveUsuario ? 'activeUsario' : '' }}">
                         <x-ts-icon class="w-6 h-6" icon="document" outline/>
                         <p>Usuários</p>
                     </a>
