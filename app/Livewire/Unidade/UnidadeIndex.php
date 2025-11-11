@@ -10,14 +10,15 @@ use Illuminate\Database\Eloquent\Builder;
 class UnidadeIndex extends Component
 {
     use WithPagination;
-    public int $quantity = 5; 
- 
-    public ?string $search = null; 
+    public $quantity = 5; 
+    public $search = null; 
     public $ensinoFilter = null;
-    public function with(): array
+
+    public function dispatchOpenModal(){
+        $this->dispatch('dispatchOpenModalCreateUnidade');
+    }
+    public function with()
    {
-    
-    
         return [
             'headers' => [
                 ['index' => 'codigo_unidade', 'label' => 'Codigo'],

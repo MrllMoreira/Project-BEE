@@ -13,7 +13,7 @@
         label="Ensino" wire:model.live="ensinoFilter"/>
         </div>
         @if (Auth::user()->roles_id == 1)
-        <button class="flex items-center justify-center bg-slate-400 h-[34px] w-[34px] rounded-lg mb-[1px]">
+        <button class="flex items-center justify-center bg-slate-400 h-[34px] w-[34px] rounded-lg mb-[1px]" wire:click="dispatchOpenModal">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
             stroke="white" stroke-width="2" stroke-linecap="round" 
             stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
@@ -26,5 +26,6 @@
         <x-ts-table :$headers :$rows filter loading paginate link="a fazer">
         </x-ts-table>
     </div>
+    <livewire:unidade.create/>
 </div>
 
