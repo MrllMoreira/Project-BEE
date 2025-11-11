@@ -1,58 +1,50 @@
-<x-ts-modal title="Criar unidade" center wire>
-        <form method="POST" ">
+<x-ts-modal title="Criar usuário" center wire>
+    
+    <form method="POST" ">
             @csrf
-            <div>
-                <x-label for="nome" value="Nome" />
-                <x-input id="nome" class="block mt-1 w-full" type="text" name="nome"  required autofocus/>
-            </div>
-            
+         <div>
             <div class="flex flex-row gap-5">
                 <div class="mt-4 w-1/3">
-                    <x-label for="codigo" value="Codigo da unidade" />
-                    <x-input id="codigo" class="block mt-1 w-full" type="text" name="codigo" required />
+                    <x-ts-input id="cpf" class="block mt-1 w-full" type="text" label="CPF *" required />                            
                 </div>
-                
-                <div class="mt-4 w-2/3">
-                    <x-label for="responsavel" value="Responsavel" />
-                    <x-input id="responsavel" class="block mt-1 w-full" type="text" name="responsavel" required />
+                 <div class="mt-4 w-1/3">
+                    <x-ts-input id="matricula" class="block mt-1 w-full" type="text" label="Matrícula *" required />
                 </div>
+                 <div class="mt-4 w-1/3">
+                    <x-ts-select.styled class="block mt-1 w-full" id="role" :options="[
+                        ['label' => 'Funcionário', 'value' => 1],
+                        ['label' => 'Diretor', 'value' => 2],
+                        ['label' => 'Secretaria', 'value' => 3],
+                        ['label' => 'Admin', 'value' => 4],]" 
+                    label="Função *" required/>
+                        
+                    </div>
             </div>
-            
-            <div class="flex flex-row gap-5">
-                <div class="mt-4 w-1/3">
-                    <x-label for="telefone" value="Telefone" />
-                    <x-input id="telefone" class="block mt-1 w-full" type="tel" name="telefone" required />
-                </div>
-
-                <div class="mt-4 w-1/3">
-                    <x-label for="celular" value="Celular" />
-                    <x-input id="celular" class="block mt-1 w-full" type="tel" name="celular" required />
-                </div>
-
-                <div class="mt-4 w-1/3">
-                    <x-label for="email" value="Email" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" required />
-                </div>
+            <div class="mt-4">
+                <x-ts-input label="Nome *"  id="nome" class="block mt-1 w-full" type="text" required autofocus/>
             </div>
-            
             <div class="flex flex-row gap-5">
                 <div class="mt-4 w-1/2">
-                    <x-label for="endereco" value="Endereco" />
-                    <x-input id="endereco" class="block mt-1 w-full" type="text" name="endereco" required />
+                    <x-ts-select.styled class="block mt-1 w-full" id="unidade" :options="$unidades" searchable
+                    label="Unidade *"  required/>   
                 </div>
-
+            
                 <div class="mt-4 w-1/2">
-                    <x-label for="ensino" value="Ensino" />
-                    <x-input id="ensino" class="block mt-1 w-full" type="text" name="ensino" required />
+                    <x-ts-input id="email" class="block mt-1 w-full" type="email" label="Email *" required />
                 </div>
-
             </div>
-
-               
-            <div class="flex items-center justify-end mt-4">
-                <x-button class="ms-4" type="submit">
-                    Criar
-                </x-button>
+            <div class="flex flex-row gap-5">
+                    <div class="mt-4 w-1/2">
+                        <x-ts-input id="password" class="block mt-1 w-full" type="password" label="Senha Temporaria *" required />
+                    </div>
+                    <div class="mt-4 w-1/2">
+                        <x-ts-input id="confirmPassword" class="block mt-1 w-full" type="password" label="Confirmar senha *" required />
+                    </div>
+                </div>
             </div>
-        </form>
-    </x-ts-modal>
+            <div class="flex items-center justify-end">
+                <x-button class="mt-4" type="submit">Criar</x-button>
+            </div>
+        </div>    
+    </form>
+</x-ts-modal>

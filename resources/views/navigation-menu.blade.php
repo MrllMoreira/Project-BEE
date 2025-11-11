@@ -282,7 +282,7 @@
                     </a>
                 @endif
                 @if (Auth::user()->roles_id == 1)
-                    <a href="{{ route('usuario') }}"  class="{{$aClass}} {{ $isActiveUsuario ? 'activeUsario' : '' }}">
+                    <a href="{{ route('usuario') }}"  class="{{$aClass}} {{ $isActiveUsuario ? 'activeUsuario' : '' }}">
                         <x-ts-icon class="w-6 h-6" icon="document" outline/>
                         <p>Usuários</p>
                     </a>
