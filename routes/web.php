@@ -4,6 +4,7 @@ use App\Livewire\Documentos\DocumentosIndex;
 use App\Livewire\Index;
 use App\Livewire\Inventario\InventarioIndex;
 use App\Livewire\Unidade\UnidadeIndex;
+use App\Livewire\Usuario\UsuarioShow;
 use App\Livewire\Usuario\UsuarioIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,4 @@ Route::get('/inventario', InventarioIndex::class)->name('inventario');
 Route::get('/unidade', UnidadeIndex::class)->name('unidade');  
 
 Route::get('/usuario', UsuarioIndex::class)->name('usuario');  
+Route::get('/usuario/{id}', UsuarioShow::class)->name('usuario.show');  

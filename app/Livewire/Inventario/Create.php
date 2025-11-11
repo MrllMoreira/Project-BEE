@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    public $modal = true;
+    public $modal = false;
     #[On('dispatchOpenModalCreateInventario')]
     public function OpenModal(){
         $this->modal = true;
