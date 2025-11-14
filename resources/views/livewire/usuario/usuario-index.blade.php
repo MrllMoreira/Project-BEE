@@ -21,4 +21,5 @@
     :search="$search" 
     :quantity="$quantity"
     link="usuario.show"/>
-    <livewire:usuario.create/>
+        <livewire:usuario.show/>
+        <livewire:usuario.create/>

@@ -18,6 +18,10 @@ class UsuarioIndex extends Component
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUser');
     }
+    public function dispatchOpenShowModal($id){
+        $this->dispatch('dispatchOpenModalShowUser', $id);
+    }
+
  
     public function with(): array
     

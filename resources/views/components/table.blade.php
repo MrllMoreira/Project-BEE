@@ -65,7 +65,7 @@
               @foreach ($rows as $row )
                 <tr>
                   @foreach ($headers as $header)
-                    <td wire:click='dispatchOpenShowModal'
+                    <td wire:click='dispatchOpenShowModal({{$row->id}})'
                         class="dark:text-dark-300 whitespace-nowrap px-3 py-4 text-sm text-gray-500 cursor-pointer">
                         {{ data_get($row, $header['index']) }}
                     </td>
@@ -153,5 +153,4 @@
         </span>
     </div>
 </div>
-
 </div>

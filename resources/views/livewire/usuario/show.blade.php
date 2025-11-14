@@ -1,3 +1,3 @@
-<div>
-    {{-- Success is as dangerous as failure. --}}
-</div>
+<x-ts-modal center wire>
+    @dump($user)
+</x-ts-modal>
