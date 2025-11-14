@@ -15,7 +15,7 @@ class InventarioIndex extends Component
     public $search = null; 
     public $statusFilter = null;
 
-    public function dispatchOpenModal(){
+    public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateInventario');
     }
  

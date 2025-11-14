@@ -14,7 +14,7 @@ class UnidadeIndex extends Component
     public $search = null; 
     public $ensinoFilter = null;
 
-    public function dispatchOpenModal(){
+    public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUnidade');
     }
     public function with()

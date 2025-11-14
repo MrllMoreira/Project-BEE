@@ -11,17 +11,18 @@ use Illuminate\Database\Eloquent\Builder;
 class UsuarioIndex extends Component
 {
     use WithPagination;
-    public int $quantity = 10; 
-    public ?string $search = null; 
+    public int $quantity = 5; 
+    public ?string $search = ""; 
     public $escolaFilter = null;
 
-
-    public function dispatchOpenModal(){
+    public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUser');
     }
+ 
     public function with(): array
     
    {
+        $this->resetPage();
 
         return [
             'escolas' => Unidade::query()
@@ -33,10 +34,13 @@ class UsuarioIndex extends Component
                 ['index' => 'nome', 'label' => 'Nome'],
                 ['index' => 'unidades_nome', 'label' => 'Unidade'],
                 ['index' => 'email', 'label' => 'Email'],
+                ['index' => 'role', 'label' => 'Função'],
             ],
             'rows' => User::query()
                 ->join('unidades', 'users.unidade_id', '=', 'unidades.id')
+                ->join('roles', 'users.roles_id', '=', 'roles.id')
                 ->select('users.*', 'unidades.nome as unidades_nome')
+                ->selectRaw('UPPER(roles.nome ) as role')
                 ->when($this->search, function (Builder $query) {
                     return $query->where('users.nome', 'like', "%{$this->search}%");
                 })
