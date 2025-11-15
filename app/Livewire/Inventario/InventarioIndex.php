@@ -18,6 +18,9 @@ class InventarioIndex extends Component
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateInventario');
     }
+     public function dispatchOpenShowModal($id){
+        $this->dispatch('dispatchOpenModalShowInventario', $id);
+    }
  
     public function with(): array
    {
@@ -25,11 +28,12 @@ class InventarioIndex extends Component
         return [
             'headers' => [
                 ['index' => 'nome', 'label' => 'Nome'],
-                ['index' => 'status', 'label' => 'Status'],
+                ['index' => 'status', 'label' => 'Status', 'responsive' => true],
+                ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Inventario::query()
                 ->join('inventario_status', 'inventario.status', '=', 'inventario_status.id')
-                ->select('inventario.nome', 'inventario_status.nome as status')
+                ->select('inventario.nome', 'inventario_status.nome as status', 'inventario.id')
                 ->when(Auth::user()->unidade_id, function (Builder $query){
                     return $query->where('inventario.unidade_id', '=', Auth::user()->unidade_id);
                 })

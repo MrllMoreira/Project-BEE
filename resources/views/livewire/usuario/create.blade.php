@@ -1,7 +1,7 @@
 <x-ts-modal title="Criar usuário" center wire>
     
     <form method="POST" ">
-            @csrf
+        @csrf
          <div>
             <div class="flex flex-row gap-5">
                 <div class="mt-4 w-1/3">

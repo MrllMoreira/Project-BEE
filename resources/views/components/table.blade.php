@@ -54,7 +54,7 @@
                 <tr>
                     @foreach ($headers as $header)
                       <th scope="col"
-                        class="dark:text-dark-200 px-3 py-3.5 text-left text-sm font-semibold text-gray-700">
+                        class="dark:text-dark-200 px-3 py-3.5 text-left text-sm font-semibold text-gray-700 {{ $header['responsive'] ?? false ? 'hidden lg:table-cell' : '' }}">
                         {{$header['label']}}
                       </th>
                     @endforeach
@@ -66,8 +66,16 @@
                 <tr>
                   @foreach ($headers as $header)
                     <td wire:click='dispatchOpenShowModal({{$row->id}})'
-                        class="dark:text-dark-300 whitespace-nowrap px-3 py-4 text-sm text-gray-500 cursor-pointer">
+                        class="dark:text-dark-300 whitespace-nowrap px-3 py-4 text-sm text-gray-500 cursor-pointer {{ $header['responsive'] ?? false ? 'hidden lg:table-cell' : '' }}">
                         {{ data_get($row, $header['index']) }}
+                        @if($header['index'] == 'actions')
+                           
+                            <div class="flex gap-2">
+                                <x-ts-button icon="pencil" color="gray" outline sm />
+                                <x-ts-button icon="trash" color="red" sm/>
+                            </div>
+                            
+                        @endif
                     </td>
                   @endforeach
                

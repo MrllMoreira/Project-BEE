@@ -20,13 +20,15 @@
             </svg>
         </button>
     </div>
+
      <x-table
-    :headers="$headers" 
-    :rows="$rows"
-    :search="$search" 
-    :quantity="$quantity"
-    link="usuario.show"
+        :headers="$headers" 
+        :rows="$rows"
+        :search="$search" 
+        :quantity="$quantity"
+        link="inventario.show"
    />
     <livewire:inventario.create/>
+    <livewire:inventario.show/>
 </div>
 

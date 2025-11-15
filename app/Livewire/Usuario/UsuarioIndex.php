@@ -36,15 +36,13 @@ class UsuarioIndex extends Component
             'headers' => [
                 ['index' => 'matricula', 'label' => 'Matricula'],
                 ['index' => 'nome', 'label' => 'Nome'],
-                ['index' => 'unidades_nome', 'label' => 'Unidade'],
-                ['index' => 'email', 'label' => 'Email'],
-                ['index' => 'role', 'label' => 'Função'],
+                ['index' => 'unidades_nome', 'label' => 'Unidade', 'responsive' => true],
+                ['index' => 'email', 'label' => 'Email', 'responsive' => true],
+                ['index' => 'actions', 'label' => 'Ações']
             ],
             'rows' => User::query()
                 ->join('unidades', 'users.unidade_id', '=', 'unidades.id')
-                ->join('roles', 'users.roles_id', '=', 'roles.id')
                 ->select('users.*', 'unidades.nome as unidades_nome')
-                ->selectRaw('UPPER(roles.nome ) as role')
                 ->when($this->search, function (Builder $query) {
                     return $query->where('users.nome', 'like', "%{$this->search}%");
                 })

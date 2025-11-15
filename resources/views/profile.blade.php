@@ -1,6 +1,6 @@
 <x-dropdown align="right" width="" class="w-64">
     <x-slot name="trigger">
-        
+       
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <button class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
                 <img class="z-50 object-cover w-12 h-12 border-2 border-yellow-400 rounded-full size-8" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->nome }}" />

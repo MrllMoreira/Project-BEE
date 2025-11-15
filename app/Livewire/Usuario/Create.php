@@ -16,6 +16,7 @@ class Create extends Component
     }
     public function mount(){
         $this->unidades = Unidade::select('nome as label', 'id as value')->get();
+        
         return $this->unidades;
     }
     public function render()

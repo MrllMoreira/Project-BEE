@@ -27,8 +27,9 @@
     :rows="$rows"
     :search="$search" 
     :quantity="$quantity"
-    link="usuario.show"
+    link="unidade.show"
  />
     <livewire:unidade.create/>
+    <livewire:unidade.show/>
 </div>
 

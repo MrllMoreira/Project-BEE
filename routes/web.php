@@ -3,8 +3,10 @@
 use App\Livewire\Documentos\DocumentosIndex;
 use App\Livewire\Index;
 use App\Livewire\Inventario\InventarioIndex;
+use App\Livewire\Unidade\Show as UnidadeShow; 
 use App\Livewire\Unidade\UnidadeIndex;
 use App\Livewire\Usuario\Show as UsuarioShow;
+use App\Livewire\Inventario\Show as InventarioShow;
 
 use App\Livewire\Usuario\UsuarioIndex;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +31,10 @@ Route::get('/dashboard', Index::class)->name('dashboard');
 Route::get('/documentos', DocumentosIndex::class)->name('documentos');  
 
 Route::get('/inventario', InventarioIndex::class)->name('inventario');  
+Route::get('/inventario/{id}', InventarioShow::class)->name('inventario.show');  
 
 Route::get('/unidade', UnidadeIndex::class)->name('unidade');  
+Route::get('/unidade/{id}', UnidadeShow::class)->name('unidade.show');  
 
 Route::get('/usuario', UsuarioIndex::class)->name('usuario');  
 Route::get('/usuario/{id}', UsuarioShow::class)->name('usuario.show');  

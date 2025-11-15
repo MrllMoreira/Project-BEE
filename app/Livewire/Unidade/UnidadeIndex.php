@@ -17,14 +17,18 @@ class UnidadeIndex extends Component
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUnidade');
     }
+     public function dispatchOpenShowModal($id){
+        $this->dispatch('dispatchOpenModalShowUnidade', $id);
+    }
     public function with()
    {
         return [
             'headers' => [
                 ['index' => 'codigo_unidade', 'label' => 'Codigo'],
                 ['index' => 'nome', 'label' => 'Nome'],
-                ['index' => 'responsavel', 'label' => 'Responsavel'],
-                ['index' => 'telefone', 'label' => 'telefone'],
+                ['index' => 'responsavel', 'label' => 'Responsavel', 'responsive' => true],
+                ['index' => 'telefone', 'label' => 'telefone', 'responsive' => true],
+                ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Unidade::query()
                 ->join('unidades_tipo', 'unidades.unidade_tipo_id', '=', 'unidades_tipo.id')
