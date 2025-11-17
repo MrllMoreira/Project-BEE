@@ -14,14 +14,22 @@ class InventarioIndex extends Component
     public $quantity = 10; 
     public $search = null; 
     public $statusFilter = null;
+    public $idUnidade;
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateInventario');
     }
-     public function dispatchOpenShowModal($id){
-        $this->dispatch('dispatchOpenModalShowInventario', $id);
+     public function dispatchOpenShowInfos($id){
+        redirect()->route('equipamentos', ['idUnidade' =>$this->idUnidade, 'id'=> $id]);
     }
- 
+    
+    public function mount($id)
+    {
+        if (Auth::user()->roles_id != 1 && $id != Auth::user()->unidade_id) {
+            abort(403, 'Não autorizado.');
+        }
+        $this->idUnidade = $id;
+    }
     public function with(): array
    {
     
@@ -34,9 +42,7 @@ class InventarioIndex extends Component
             'rows' => Inventario::query()
                 ->join('inventario_status', 'inventario.status', '=', 'inventario_status.id')
                 ->select('inventario.nome', 'inventario_status.nome as status', 'inventario.id')
-                ->when(Auth::user()->unidade_id, function (Builder $query){
-                    return $query->where('inventario.unidade_id', '=', Auth::user()->unidade_id);
-                })
+                ->where('inventario.unidade_id', '=', $this->idUnidade)
                 ->when($this->search, function (Builder $query) {
                     return $query->where('inventario.nome', 'like', "%{$this->search}%");
                 })

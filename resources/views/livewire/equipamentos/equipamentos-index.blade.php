@@ -1,7 +1,15 @@
 
 
 <div class="h-[780px] px-5 sm:max-w-[750px] lg:max-w-full">
-    <h1 class="p-6 mb-8 text-3xl font-bold">EMEF Dr. Carlos de Almeida - Inventario</h1>
+    <div class="flex flex-row items-center p-4 gap-5">
+      <button wire:click="voltarInventarios">
+        <svg class="w-5 h-5" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" />
+        </svg>
+      </button>
+      <h1 class="text-3xl font-bold">Sala 1</h1>
+    </div>
     <div class="flex flex-col gap-4 p-2">
     <div class="flex flex-row gap-4 items-end">
         <div class="flex flex-row gap-3 items-end">
@@ -26,9 +34,9 @@
         :rows="$rows"
         :search="$search" 
         :quantity="$quantity"
-        link="equipamentos"
+        link="equipamentos.show"
    />
-    <livewire:inventario.create/>
+    <livewire:equipamentos.show/>
     
 </div>
 

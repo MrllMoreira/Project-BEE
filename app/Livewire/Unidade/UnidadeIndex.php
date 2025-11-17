@@ -17,7 +17,7 @@ class UnidadeIndex extends Component
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUnidade');
     }
-     public function dispatchOpenShowModal($id){
+     public function dispatchOpenShowInfos($id){
         $this->dispatch('dispatchOpenModalShowUnidade', $id);
     }
     public function with()
@@ -36,7 +36,7 @@ class UnidadeIndex extends Component
                 ->when($this->search, function (Builder $query) {
                     return $query->where('unidades.nome', 'like', "%{$this->search}%");
                 })
-                ->orderBy('unidades.nome', 'asc')
+                ->orderBy('unidades.id', 'asc')
                 ->when($this->ensinoFilter, function (Builder $query) {
                     return $query->where('unidades_tipo.id', $this->ensinoFilter);
                 })

@@ -76,4 +76,9 @@
             disabled
         />
     </div>
+    <div class="flex items-center justify-end my-4">
+        <x-button wire:click='irParaInventario'>
+            Inventarios
+        </x-button>
+    </div>
 </x-ts-modal>

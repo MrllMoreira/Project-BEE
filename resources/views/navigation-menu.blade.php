@@ -14,7 +14,8 @@
     @php
         $isActiveDashboard = request()->routeIs('dashboard');
         $isActiveDocumentos = request()->routeIs('documentos');
-        $isActiveInventario = request()->routeIs('inventario');
+        $isActiveInventario = request()->routeIs('inventario') 
+            && request()->route('id') == Auth::user()->unidade_id;
         $isActiveUnidade = request()->routeIs('unidade');
         $isActiveUsuario = request()->routeIs('usuario');
         $aClass = "z-50 flex items-center h-8 gap-1 font-bold text-gray-800
@@ -270,7 +271,7 @@
                 </a>
                 
 
-                <a href="{{ route('inventario') }}" class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}">
+                <a href="{{ route('inventario', Auth::user()->unidade_id) }}" class="{{$aClass}} {{ $isActiveInventario ? 'activeInventario' : '' }}">
                     <x-ts-icon class="w-6 h-6" icon="inbox-arrow-down" outline/>
                     <p>Inventário</p>
                 </a>

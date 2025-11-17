@@ -65,7 +65,7 @@
               @foreach ($rows as $row )
                 <tr>
                   @foreach ($headers as $header)
-                    <td wire:click='dispatchOpenShowModal({{$row->id}})'
+                    <td wire:click='dispatchOpenShowInfos({{$row->id}})'
                         class="dark:text-dark-300 whitespace-nowrap px-3 py-4 text-sm text-gray-500 cursor-pointer {{ $header['responsive'] ?? false ? 'hidden lg:table-cell' : '' }}">
                         {{ data_get($row, $header['index']) }}
                         @if($header['index'] == 'actions')

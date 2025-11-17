@@ -25,6 +25,10 @@ class Show extends Component
     'ensino' => null
 ];
     public $id;
+    public function irParaInventario(){
+        return redirect()->route('inventario', $this->unidade['id']);
+        
+    }
     #[On('dispatchOpenModalShowUnidade')]
     public function OpenModal($id){
         $this->unidade = Unidade::select(
