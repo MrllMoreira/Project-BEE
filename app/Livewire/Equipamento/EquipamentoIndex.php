@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Equipamentos;
+namespace App\Livewire\Equipamento;
 
 use App\Models\Equipamento;
 use App\Models\Inventario;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class EquipamentosIndex extends Component
+class EquipamentoIndex extends Component
 {
     use WithPagination;
     public $quantity = 10; 
@@ -18,6 +18,11 @@ class EquipamentosIndex extends Component
 
     public $id;
     public $idUnidade;
+
+    public function dispatchOpenEditModal($id){
+
+        $this->dispatch('dispatchOpenModalEditEquipamento', $id);
+    }
 
     public function mount($idUnidade,$id)
     {
@@ -72,6 +77,6 @@ class EquipamentosIndex extends Component
     }
     public function render()
     {
-        return view('livewire.equipamentos.equipamentos-index', $this->with());
+        return view('livewire.equipamento.equipamento-index', $this->with());
     }
 }

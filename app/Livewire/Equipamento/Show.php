@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Equipamentos;
+namespace App\Livewire\Equipamento;
 
 use App\Models\Equipamento;
 use App\Models\Role;
@@ -38,6 +38,6 @@ class Show extends Component
     }
     public function render()
     {
-        return view('livewire.equipamentos.show');
+        return view('livewire.equipamento.show');
     }
 }

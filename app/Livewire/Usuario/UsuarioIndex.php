@@ -14,6 +14,7 @@ class UsuarioIndex extends Component
     public int $quantity = 5; 
     public ?string $search = ""; 
     public $escolaFilter = null;
+    public $escolas;
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUser');
@@ -21,18 +22,23 @@ class UsuarioIndex extends Component
     public function dispatchOpenShowInfos($id){
         $this->dispatch('dispatchOpenModalShowUser', $id);
     }
+    public function dispatchOpenEditModal($id){
+        $this->dispatch('dispatchOpenModalEditUser', $id);
+    }
 
  
+    public function mount(){
+        $this->escolas  = Unidade::query()
+                ->select('unidades.nome as label', 'unidades.id as value')
+                ->get()
+                ->toArray();
+    }
     public function with(): array
     
    {
-        $this->resetPage();
+        
 
         return [
-            'escolas' => Unidade::query()
-                ->select('unidades.nome as label', 'unidades.id as value')
-                ->get()
-                ->toArray(),
             'headers' => [
                 ['index' => 'matricula', 'label' => 'Matricula'],
                 ['index' => 'nome', 'label' => 'Nome'],
@@ -44,7 +50,8 @@ class UsuarioIndex extends Component
                 ->join('unidades', 'users.unidade_id', '=', 'unidades.id')
                 ->select('users.*', 'unidades.nome as unidades_nome')
                 ->when($this->search, function (Builder $query) {
-                    return $query->where('users.nome', 'like', "%{$this->search}%");
+                     $search = strtolower($this->search);
+                    return $query->whereRaw('LOWER(users.nome) LIKE ?', ["%{$search}%"]);
                 })
                 ->orderBy('users.nome', 'asc')
                 ->when($this->escolaFilter, function (Builder $query) {

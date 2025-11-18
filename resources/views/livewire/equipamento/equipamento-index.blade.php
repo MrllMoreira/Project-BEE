@@ -34,9 +34,11 @@
         :rows="$rows"
         :search="$search" 
         :quantity="$quantity"
-        link="equipamentos.show"
+        link="equipamento.show"
    />
-    <livewire:equipamentos.show/>
+   
+    <livewire:equipamento.show/>
+    <livewire:equipamento.edit/>
     
 </div>
 

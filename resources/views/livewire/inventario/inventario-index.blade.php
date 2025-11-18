@@ -29,6 +29,8 @@
         link="equipamentos"
    />
     <livewire:inventario.create/>
+    <livewire:inventario.edit/>
+    
     
 </div>
 

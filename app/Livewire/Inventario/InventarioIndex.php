@@ -20,7 +20,10 @@ class InventarioIndex extends Component
         $this->dispatch('dispatchOpenModalCreateInventario');
     }
      public function dispatchOpenShowInfos($id){
-        redirect()->route('equipamentos', ['idUnidade' =>$this->idUnidade, 'id'=> $id]);
+        redirect()->route('equipamento', ['idUnidade' =>$this->idUnidade, 'id'=> $id]);
+    }
+    public function dispatchOpenEditModal($id){
+        $this->dispatch('dispatchOpenModalEditInventario', $id);
     }
     
     public function mount($id)

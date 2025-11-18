@@ -1,8 +1,9 @@
 <?php
 
 use App\Livewire\Documentos\DocumentosIndex;
-use App\Livewire\Equipamentos\EquipamentosIndex;
-use App\Livewire\Equipamentos\Show as EquipamentosShow;
+
+use App\Livewire\Equipamento\Show as EquipamentosShow;
+use App\Livewire\Equipamento\EquipamentoIndex;
 use App\Livewire\Index;
 use App\Livewire\Inventario\InventarioIndex;
 use App\Livewire\Unidade\Show as UnidadeShow; 
@@ -34,8 +35,8 @@ Route::get('/documentos', DocumentosIndex::class)->name('documentos');
 
 Route::get('/{id}/inventario', InventarioIndex::class)->name('inventario');  
 
-Route::get('/{idUnidade}/inventario/{id}/equipamentos', EquipamentosIndex::class)->name('equipamentos');
-Route::get('{idUnidade}/inventario/{idInventario}/equipamentos/{id}', EquipamentosShow::class)->name('equipamentos.show');
+Route::get('/{idUnidade}/inventario/{id}/equipamentos', EquipamentoIndex::class)->name('equipamento');
+Route::get('{idUnidade}/inventario/{idInventario}/equipamentos/{id}', EquipamentosShow::class)->name('equipamento.show');
 
 
 Route::get('/unidade', UnidadeIndex::class)->name('unidade');  

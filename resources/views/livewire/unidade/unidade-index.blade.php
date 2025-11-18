@@ -31,5 +31,6 @@
  />
     <livewire:unidade.create/>
     <livewire:unidade.show/>
+    <livewire:unidade.edit/>
 </div>
 
