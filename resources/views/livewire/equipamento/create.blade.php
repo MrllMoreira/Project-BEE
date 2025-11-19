@@ -52,7 +52,7 @@
                 label="Descrição / Observação"
                 class="block mt-1 w-full"
                 wire:model.defer="equipamento.descricao"
-                placeholder="Alguma observação sobre o equipamento"
+                placeholder="Alguma observação e/ou descrição sobre o equipamento"
             />
         </div>
 

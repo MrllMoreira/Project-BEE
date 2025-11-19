@@ -20,6 +20,7 @@ class Show extends Component
         "status" => '',
         "categoria" => '',
         "atualizadoEm" => '',
+        'descricao' => '',
     ];
     #[On('dispatchOpenModalShowEquipamentos')]
     public function OpenModal($id){
@@ -32,7 +33,7 @@ class Show extends Component
                 
                 ->where('equipamentos.id', '=', $id)
                 
-                ->select('codigo_patrimonio', 'equipamentos.id', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )->first();
+                ->select('codigo_patrimonio', 'equipamentos.id', 'equipamentos.descricao',  'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )->first()->toArray();
 
         $this->modal = true;
     }

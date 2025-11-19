@@ -9,18 +9,20 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $modal= false;
-    public $nome;
-    public $status;
+    public $inventario = [
+        'nome' => '',
+        'status' =>'',
+    ];
     #[On('dispatchOpenModalEditInventario')]
     public function openModal($id) {
-        $inventario = Inventario::select("nome", "status")
+        $this->inventario = Inventario::select("nome", "status")
         ->where("id", '=', $id)
-        ->first();
+        ->first()->toArray();
 
         $this->modal = true;
-        $this->nome = $inventario['nome'];
-        $this->status = $inventario['status'];;
-        
+    }
+    public function editInventario() {
+        dump($this->inventario);
     }
     public function render()
     {

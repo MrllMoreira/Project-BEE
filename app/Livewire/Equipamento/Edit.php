@@ -17,7 +17,7 @@ class Edit extends Component
     public $transferirEquipamento = false;
     public $equipamento = [
         "codigo_patrimonio" => '',
-        "id" => 0,
+        'descricao' => '',
         "marca" => '',
         "status" => '',
         "categoria" => '',
@@ -40,19 +40,23 @@ class Edit extends Component
                 
                 ->where('equipamentos.id', '=', $id)
                 
-                ->select('inventario_id', 'codigo_patrimonio', 'equipamentos.id', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )->first();
+                ->select('inventario_id', 'equipamentos.descricao', 'codigo_patrimonio', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria' )->first()->toArray();
 
-        $this->inventarios = Inventario::select('nome as label', 'id as value')
-            ->where('unidade_id', '=', $this->unidade_id)
-            ->get();
+        
         
         $this->modal = true;
     }
  
     public function mount() {
-        $this->unidade_id = request()->route('idUnidade');
+        $this->inventarios = Inventario::select('nome as label', 'id as value')
+            ->where('unidade_id', '=', request()->route('idUnidade'))
+            ->get()->toArray();
+        return $this->inventarios;
+        
     }
-    
+    public function editEquipamento() {
+        dump($this->equipamento);
+    }
     public function render()
     {
         return view('livewire.equipamento.edit');

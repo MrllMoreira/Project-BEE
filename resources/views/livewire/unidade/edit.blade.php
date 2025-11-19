@@ -99,7 +99,7 @@
                     </div>
                 </div>
     <div class="flex items-center justify-end">
-        <x-button class="mt-4" type="submit">Salvar Alterações</x-button>
+        <x-button class="mt-4" wire:click='editUnidade'>Salvar Alterações</x-button>
     </div> 
     
 </x-ts-modal>

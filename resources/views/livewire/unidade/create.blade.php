@@ -54,7 +54,7 @@
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/2">
                         <x-ts-input wire:model.defer="unidade.codigo" class="block mt-1 w-full"
-                            type="text" label="Codigo da unidade *" required />
+                         label="Codigo da unidade *" />
                     </div>
 
                     <div class="mt-4 w-1/2">
@@ -66,7 +66,7 @@
                             ]"
                             label="Ensino *"
                             class="block mt-1 w-full"
-                            required
+                        
                             wire:model.defer='unidade.ensino'
                         />
                     </div>
@@ -74,12 +74,12 @@
 
                 <div class="mt-4">
                     <x-ts-input label="Nome *" wire:model.defer="unidade.nome"
-                        class="block mt-1 w-full" type="text" required autofocus/>
+                        class="block mt-1 w-full" autofocus/>
                 </div>
 
                 <div class="mt-4">
                     <x-ts-input wire:model.defer="unidade.responsavel"
-                        class="block mt-1 w-full" type="text" label="Responsavel *" required />
+                        class="block mt-1 w-full" label="Responsavel *" />
                 </div>
 
                 <div class="flex justify-end mt-4">
@@ -96,18 +96,18 @@
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/2">
                         <x-ts-input wire:model.defer="unidade.telefone"
-                            class="block mt-1 w-full" type="tel" label="Telefone *" required />
+                            class="block mt-1 w-full"  label="Telefone *" />
                     </div>
 
                     <div class="mt-4 w-1/2">
                         <x-ts-input wire:model.defer="unidade.celular"
-                            class="block mt-1 w-full" type="tel" label="Celular" required />
+                            class="block mt-1 w-full"  label="Celular" />
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <x-ts-input wire:model.defer="unidade.email"
-                        class="block mt-1 w-full" type="email" label="Email *" required />
+                        class="block mt-1 w-full" label="Email *" />
                 </div>
 
                 <div class="flex justify-between mt-4">
@@ -124,39 +124,39 @@
 
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-2/5">
-                        <x-ts-input wire:model.live="endereco.cep"
-                            class="block mt-1 w-full" type="text"
-                            label="CEP *" required placeholder="_____-___" maxlength="9" />
+                        <x-ts-input wire:model.live="unidade.endereco.cep"
+                            class="block mt-1 w-full"
+                            label="CEP *" placeholder="_____-___" maxlength="9" />
                     </div>
 
                     <div class="mt-4 w-2/5">
                         <x-ts-input wire:model.defer="cidade"
-                            class="block mt-1 w-full" type="text"
-                            label="Cidade *" required wire:model.defer="endereco.localidade"/>
+                            class="block mt-1 w-full"
+                            label="Cidade *" wire:model.defer="unidade.endereco.cidade"/>
                     </div>
 
                     <div class="mt-4 w-1/5">
                         <x-ts-select.styled class="block mt-1 w-full"
                             wire:model.defer="uf" :options="$ufs"
                             select="label:name|value:name"
-                            label="UF *" required wire:model.live="endereco.uf"/>
+                            label="UF *" wire:model.defer="unidade.endereco.uf"/>
                     </div>
                 </div>
 
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-3/5">
-                        <x-ts-input class="block mt-1 w-full" type="text"
-                            label="Rua *" required wire:model.defer="endereco.logradouro"/>
+                        <x-ts-input class="block mt-1 w-full"
+                            label="Rua *" wire:model.defer="unidade.endereco.rua"/>
                     </div>
 
                     <div class="mt-4">
-                        <x-ts-input class="block mt-1 w-full" type="text"
-                            label="Bairro *" required wire:model.defer="endereco.bairro"/>
+                        <x-ts-input class="block mt-1 w-full"
+                            label="Bairro *" wire:model.defer="unidade.endereco.bairro"/>
                     </div>
 
                     <div class="mt-4 w-1/5">
-                        <x-ts-input class="block mt-1 w-full" type="text"
-                            label="Número *" required wire:model.defer="endereco.numero"/>
+                        <x-ts-input class="block mt-1 w-full"
+                            label="Número *" wire:model.defer="unidade.endereco.numero"/>
                     </div>
 
                     

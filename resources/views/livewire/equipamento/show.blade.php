@@ -51,6 +51,14 @@ title="Informações do Equipamento - {{ $equipamento['codigo_patrimonio'] }}" c
     </div>
 
     <div class="mt-4">
+            <x-ts-input 
+                label="Descrição / Observação"
+                class="block mt-1 w-full"
+                value="{{ $equipamento['descricao'] }}"
+                disabled
+            />
+    </div>
+    <div class="mt-4">
         <x-ts-input 
             label="Atualizado em"
             class="block mt-1 w-full"

@@ -5,7 +5,7 @@
                 <div class="mt-4 w-1/3">
                     <x-ts-input 
                         class="block mt-1 w-full" 
-                        type="text" 
+                
                         label="CPF *" 
                         wire:model.defer='newUser.cpf' 
                         autofocus
@@ -14,7 +14,7 @@
                 <div class="mt-4 w-1/3">
                     <x-ts-input 
                         class="block mt-1 w-full" 
-                        type="text" 
+                
                         label="Matrícula *"  
                         wire:model.defer='newUser.matricula'
                     />
@@ -38,7 +38,7 @@
                 <x-ts-input 
                     label="Nome *"  
                     class="block mt-1 w-full" 
-                    type="text" 
+            
                     wire:model.defer='newUser.nome' 
                 />
             </div>
@@ -56,7 +56,7 @@
                 <div class="mt-4 w-1/2">
                     <x-ts-input  
                         class="block mt-1 w-full" 
-                        type="email" 
+                        
                         label="Email *" 
                         wire:model.defer='newUser.email' 
                     />
@@ -65,19 +65,19 @@
 
             <div class="flex flex-row gap-5">
                 <div class="mt-4 w-1/2">
-                    <x-ts-input  
-                        class="block mt-1 w-full" 
-                        type="password" 
+                    <x-ts-password  
+                        class="block mt-1 w-full"  
                         label="Senha Temporária *" 
-                        wire:model.defer='newUser.password' 
+                        wire:model.defer='newUser.password'
+                        
                     />
                 </div>
                 <div class="mt-4 w-1/2">
-                    <x-ts-input 
-                        class="block mt-1 w-full" 
-                        type="password" 
+                    <x-ts-password 
+                        class="block mt-1 w-full"  
                         label="Confirmar senha *" 
                         wire:model.defer='newUser.confirmPassword' 
+                        
                     />
                 </div>
             </div>

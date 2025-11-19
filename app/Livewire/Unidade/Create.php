@@ -12,56 +12,51 @@ class Create extends Component
     public $ufs;
     public $endereco;
     public $unidade = [
-       'codigo' => '',
-       'nome' => '',
-       'responsavel' => '',
-       'telefone' => '',
-       'celular' => '',
-       'email' => '',
-       'ensino' => '',
-    ];
+    'id' => null,
+    'nome' => '',
+    'responsavel' => '',
+    'telefone' => '',
+    'email' => '',
+    'celular' => '',
+    'codigo_unidade' => '',
+    'unidade_tipo_id' => null,
+    'endereco' => [
+        'uf' => '',
+        'cidade' => '',
+        'bairro' => '',
+        'rua' => '',
+        'numero' => '',
+        'cep' => '',
+    ],
+];
     public $step;
-    #[On('tsui:step.changed')]
-    public function stepChanged($step)
-    {
-        $this->step = $step;
-    }
     #[On('dispatchOpenModalCreateUnidade')]
     public function OpenModal(){
         $this->step=1;
         $this->modal = true;
     }
-    public function updatedModal(){
 
-    }
-    public function updatedEnderecoCep($value)
+    public function updatedUnidadeEnderecoCep($value)
     {
+        
         $cepValue = preg_replace('/[^0-9]/', '', $value);
-     
+        
         if (strlen($cepValue) === 8) {
+            
             $data= Http::get("https://viacep.com.br/ws/{$cepValue}/json/")->json();
-            $this->endereco = [
-                    'cep' => $data['cep'] ?? '',
-                    'localidade' => $data['localidade'] ?? '',
-                    'logradouro' => $data['logradouro'] ?? '',
+            $this->unidade['endereco'] = [
+                    'uf' => $data['uf'] ?? '',
                     'bairro' => $data['bairro'] ?? '',
                     'cidade' => $data['localidade'] ?? '',
-                    'uf' => $data['uf'] ?? '',
-                    'numero' => $this->endereco['numero'] ?? ''
+                    'rua' => $data['logradouro'] ?? '',
+                    'numero' => $this->unidade['endereco']['numero'] ?? '',
+                    'cep' => $data['cep'] ?? '',
                 ];
         }
     }
 
     public function mount()
     {
-        $this->endereco = [
-        'cep' => '',
-        'localidade' => '',
-        'logradouro' => '',
-        'bairro' => '',
-        'uf' => '',
-        'numero' => ''
-        ];
         $this->ufs = [
             ['name' => 'AC'], ['name' => 'AL'], ['name' => 'AP'], ['name' => 'AM'],
             ['name' => 'BA'], ['name' => 'CE'], ['name' => 'DF'], ['name' => 'ES'],
@@ -71,11 +66,12 @@ class Create extends Component
             ['name' => 'RS'], ['name' => 'RO'], ['name' => 'RR'], ['name' => 'SC'],
             ['name' => 'SP'], ['name' => 'SE'], ['name' => 'TO'],
         ];
+        return $this->ufs;
     }
 
     public function createUnidade(){
-        dump($this->unidade, $this->endereco);
-        $this->reset();
+        dump($this->unidade);
+    
     }
 
     public function render()

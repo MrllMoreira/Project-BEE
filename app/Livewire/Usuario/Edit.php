@@ -42,6 +42,9 @@ class Edit extends Component
         return $this->unidades;
     }
 
+    public function editUsuario() {
+        dump($this->user);
+    }
    
     public function render()
     {

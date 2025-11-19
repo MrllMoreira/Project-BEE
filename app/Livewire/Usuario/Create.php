@@ -24,14 +24,15 @@ class Create extends Component
     #[On('dispatchOpenModalCreateUser')]
     public function OpenModal(){
         $this->modal = true;
+      
     }
     public function createUser() {
-        dump($this->user);
+        dump($this->newUser);
         $this->reset();
         $this->modal = false;
     }
     public function mount(){
-        $this->unidades = Unidade::select('nome as label', 'id as value')->get();
+        $this->unidades = Unidade::select('nome as label', 'id as value')->get()->toArray();
         
         return $this->unidades;
     }

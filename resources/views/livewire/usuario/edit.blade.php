@@ -1,35 +1,35 @@
-<x-ts-modal title="Editar" center wire>
+<x-ts-modal title="Editar  - {{$user['nome']}}" center wire>
 <div>
             <div class="mt-4">
-            <x-ts-input label="Nome *" class="block mt-1 w-full" type="text" wire:model.defer="user.nome" required autofocus/>
+            <x-ts-input label="Nome *" class="block mt-1 w-full" wire:model.defer="user.nome"  autofocus/>
             </div>
             <div class="mt-4">
-                <x-ts-input class="block mt-1 w-full" type="text" label="CPF *" wire:model.defer="user.cpf" required />                            
+                <x-ts-input class="block mt-1 w-full" label="CPF *" wire:model.defer="user.cpf"  />                            
             </div>
              <div class="mt-4">
-                <x-ts-input class="block mt-1 w-full" type="text" label="Matrícula *" wire:model.defer="user.matricula" required />
+                <x-ts-input class="block mt-1 w-full" label="Matrícula *" wire:model.defer="user.matricula"  />
             </div>
             
             <div class="mt-4">
-                <x-ts-input class="block mt-1 w-full" type="email" label="Email *" wire:model.defer="user.email" required />
+                <x-ts-input class="block mt-1 w-full"  label="Email *" wire:model.defer="user.email"  />
             </div>
             
             <div class="mt-4">
-                <x-ts-select.styled class="block mt-1 w-full" id="role" :options="[
+                <x-ts-select.styled class="block mt-1 w-full"  :options="[
                     ['label' => 'Funcionário', 'value' => 1],
                     ['label' => 'Diretor', 'value' => 2],
                     ['label' => 'Secretaria', 'value' => 3],
                     ['label' => 'Admin', 'value' => 4],]" 
-                label="Função *" wire:model.defer="user.roles_id"  required/>    
+                label="Função *" wire:model.defer="user.roles_id"  />    
             </div>
             <div class="mt-4">
-                <x-ts-select.styled class="block mt-1 w-full" id="unidade" :options="$unidades" searchable
-                label="Unidade *" wire:model.defer="user.unidade_id" required/> 
+                <x-ts-select.styled class="block mt-1 w-full"  :options="$unidades" searchable
+                label="Unidade *" wire:model.defer="user.unidade_id" /> 
             </div>
                 
                 
             <div class="flex items-center justify-end">
-                <x-button class="mt-4">Salvar alterações</x-button>
+                <x-button class="mt-4" wire:click='editUsuario'>Salvar alterações</x-button>
             </div>
         </div>   
           

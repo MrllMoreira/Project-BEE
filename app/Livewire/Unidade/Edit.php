@@ -22,14 +22,12 @@ class Edit extends Component
     'codigo_unidade' => '',
     'unidade_tipo_id' => null,
     'enderecos' => [
-        'id' => null,
         'uf' => '',
         'regiao' => '',
         'cidade' => '',
         'bairro' => '',
         'rua' => '',
         'numero' => '',
-        'complemento' => '',
         'cep' => '',
     ],
 ];
@@ -72,6 +70,9 @@ class Edit extends Component
                 $endereco
             );
         }
+    }
+    public function editUnidade()  {
+        dump($this->unidade);
     }
     
     public function render()
