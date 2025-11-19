@@ -1,21 +1,23 @@
-<x-ts-modal title="Informações - {{ $unidade['nome'] }}" center wire >
+<x-ts-modal title="Informações - {{$unidade['nome']}}" center wire >
     <div class="flex flex-row gap-5">
         <div class="mt-4 w-2/3">
             <x-ts-input 
                 label="Nome" 
                 class="block mt-1 w-full"
-                value="{{ $unidade['nome'] }}"
+                wire:model.defer="unidade.nome"
 
             />
         </div>
 
         <div class="mt-4 w-1/3">
-            <x-ts-input 
-                label="Ensino" 
-                class="block mt-1 w-full"
-                value="{{ $unidade['ensino'] }}"
+           <x-ts-select.styled :options="[
+                ['label' => 'Fundamental I', 'value' => 1],
+                ['label' => 'Fundamental II', 'value' => 2],
+                ['label' => 'Fundamental I e II', 'value' => 3],]" 
+            label="Ensino *" class="block mt-1 w-full" required wire:model.defer="unidade.unidade_tipo_id"/>
+           
 
-            />
+        
         </div>
     </div>
 
@@ -24,7 +26,7 @@
             <x-ts-input 
                 label="Código da unidade" 
                 class="block mt-1 w-full"
-                value="{{ $unidade['codigo_unidade'] }}"
+                wire:model.defer="unidade.codigo_unidade"
 
             />
         </div>
@@ -33,7 +35,7 @@
             <x-ts-input 
                 label="Responsável" 
                 class="block mt-1 w-full"
-                value="{{ $unidade['responsavel'] }}"
+                wire:model.defer="unidade.responsavel"
 
             />
         </div>
@@ -44,7 +46,7 @@
             <x-ts-input 
                 label="Telefone" 
                 class="block mt-1 w-full"
-                value="{{ $unidade['telefone'] }}"
+                wire:model.defer="unidade.telefone"
 
             />
         </div>
@@ -53,7 +55,7 @@
             <x-ts-input 
                 label="Celular" 
                 class="block mt-1 w-full"
-                value="{{ $unidade['celular'] }}"
+                wire:model.defer="unidade.celular"
 
             />
         </div>
@@ -63,37 +65,39 @@
         <x-ts-input 
             label="Email" 
             class="block mt-1 w-full"
-            value="{{ $unidade['email'] }}"
+            wire:model.defer="unidade.email"
         />
     </div>
 
     <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/5">
-                        <x-ts-input id="cep" class="block mt-1 w-full" type="text" label="CEP *" required placeholder="_____-___" wire:model="cep" maxlength="9" />
+                        <x-ts-input id="cep" class="block mt-1 w-full" type="text" label="CEP *" required placeholder="_____-___" wire:model.live.debounce.500ms="unidade.enderecos.cep" maxlength="9" />
                     </div>
                     <div class="mt-4 w-3/5">
-                        <x-ts-input id="cidade" class="block mt-1 w-full" type="text" label="Cidade *" required wire:model="endereco.localidade"/>
+                        <x-ts-input id="cidade" class="block mt-1 w-full" type="text" label="Cidade *" required wire:model.defer="unidade.enderecos.cidade"/>
                     </div>
+                 
                     <div class="mt-4 w-1/5">
+                        
                         <x-ts-select.styled class="block mt-1 w-full" id="uf" :options="$ufs"
-                        select="label:name|value:name"
-                        label="UF *" required wire:model.live="endereco.uf"/>
+                       
+                        label="UF *" required wire:model.defer="unidade.enderecos.uf"/>
                     </div>
+                 
                 </div>
-            
+        
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-3/5">
-                        <x-ts-input id="rua" class="block mt-1 w-full" type="text" label="Rua *" required wire:model="endereco.logradouro"/>
+                        <x-ts-input id="rua" class="block mt-1 w-full" type="text" label="Rua *" required wire:model.defer="unidade.enderecos.rua"/>
                     </div>
                     <div class="mt-4 w-1/5">
                         <x-ts-input id="numero" class="block mt-1 w-full" type="text" label="Número *" 
-                        wire:model="endereco.logradouro" required />
+                        wire:model.defer="unidade.enderecos.numero" required />
                     </div>
                     <div class="mt-4 ">
-                        <x-ts-input id="bairro" class="block mt-1 w-full" type="text" label="Bairro *" required wire:model="endereco.bairro"/>
+                        <x-ts-input id="bairro" class="block mt-1 w-full" type="text" label="Bairro *" required wire:model.defer="unidade.enderecos.bairro"/>
                     </div>
                 </div>
-
     <div class="flex items-center justify-end">
         <x-button class="mt-4" type="submit">Salvar Alterações</x-button>
     </div> 

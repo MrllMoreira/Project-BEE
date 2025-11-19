@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class UsuarioIndex extends Component
 {
     use WithPagination;
-    public int $quantity = 5; 
+    public $quantity = 5; 
     public ?string $search = ""; 
     public $escolaFilter = null;
     public $escolas;
@@ -23,7 +23,12 @@ class UsuarioIndex extends Component
         $this->dispatch('dispatchOpenModalShowUser', $id);
     }
     public function dispatchOpenEditModal($id){
+        
         $this->dispatch('dispatchOpenModalEditUser', $id);
+    }
+    public function dispatchOpenDeleteModal($id){
+        
+        $this->dispatch('dispatchOpenModalDeleteUser', $id);
     }
 
  

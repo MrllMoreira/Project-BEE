@@ -15,14 +15,21 @@
             </svg>
         </button>
     </div>
-    <livewire:usuario.show/>
-    <livewire:usuario.edit/>
-    <livewire:usuario.create/>
-     <x-table
+    
+    <x-table
     :headers="$headers" 
     :rows="$rows"
     :search="$search" 
     :quantity="$quantity"
     link="usuario.show"/>
+
+
+    <livewire:usuario.create/>
+    <livewire:usuario.show/>
+    <livewire:usuario.edit/>
+    <livewire:usuario.delete/>
+    
+    
     
         
+</div>

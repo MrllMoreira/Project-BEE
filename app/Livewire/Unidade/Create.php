@@ -10,30 +10,44 @@ class Create extends Component
 {
     public $modal = false;
     public $ufs;
-    public $cep;
-    public $endereco = [
-        'cep' => '',
-        'localidade' => '',
-        'logradouro' => '',
-        'bairro' => '',
-        'uf' => '',
+    public $endereco;
+    public $unidade = [
+       'codigo' => '',
+       'nome' => '',
+       'responsavel' => '',
+       'telefone' => '',
+       'celular' => '',
+       'email' => '',
+       'ensino' => '',
     ];
+    public $step;
+    #[On('tsui:step.changed')]
+    public function stepChanged($step)
+    {
+        $this->step = $step;
+    }
     #[On('dispatchOpenModalCreateUnidade')]
     public function OpenModal(){
+        $this->step=1;
         $this->modal = true;
     }
-    public function updatedCep($value)
+    public function updatedModal(){
+
+    }
+    public function updatedEnderecoCep($value)
     {
         $cepValue = preg_replace('/[^0-9]/', '', $value);
-
+     
         if (strlen($cepValue) === 8) {
             $data= Http::get("https://viacep.com.br/ws/{$cepValue}/json/")->json();
             $this->endereco = [
+                    'cep' => $data['cep'] ?? '',
                     'localidade' => $data['localidade'] ?? '',
                     'logradouro' => $data['logradouro'] ?? '',
                     'bairro' => $data['bairro'] ?? '',
                     'cidade' => $data['localidade'] ?? '',
                     'uf' => $data['uf'] ?? '',
+                    'numero' => $this->endereco['numero'] ?? ''
                 ];
         }
     }
@@ -46,7 +60,8 @@ class Create extends Component
         'logradouro' => '',
         'bairro' => '',
         'uf' => '',
-    ];
+        'numero' => ''
+        ];
         $this->ufs = [
             ['name' => 'AC'], ['name' => 'AL'], ['name' => 'AP'], ['name' => 'AM'],
             ['name' => 'BA'], ['name' => 'CE'], ['name' => 'DF'], ['name' => 'ES'],
@@ -56,6 +71,11 @@ class Create extends Component
             ['name' => 'RS'], ['name' => 'RO'], ['name' => 'RR'], ['name' => 'SC'],
             ['name' => 'SP'], ['name' => 'SE'], ['name' => 'TO'],
         ];
+    }
+
+    public function createUnidade(){
+        dump($this->unidade, $this->endereco);
+        $this->reset();
     }
 
     public function render()

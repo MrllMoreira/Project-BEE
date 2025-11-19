@@ -1,5 +1,5 @@
 <div class="   h-[780px] ">
-    <h1 class="p-6 mb-8 text-3xl font-bold">EMEF Dr. Carlos de Almeida</h1>
+    <h1 class="p-6 mb-8 text-3xl font-bold">{{$nome}}</h1>
     <div class="flex items-center justify-center h-full">
         <div class="w-full p-4 px-8">
            <div class="flex items-center justify-center w-full gap-6">

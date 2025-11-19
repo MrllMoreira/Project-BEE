@@ -1,7 +1,7 @@
 
 
 <div class="h-[780px] px-5 sm:max-w-[750px] lg:max-w-full">
-    <h1 class="p-6 mb-8 text-3xl font-bold">EMEF Dr. Carlos de Almeida - Inventario</h1>
+    <h1 class="p-6 mb-8 text-3xl font-bold">{{$nome}} - Inventarios</h1>
     <div class="flex flex-col gap-4 p-2">
     <div class="flex flex-row gap-4 items-end">
         <div class="flex flex-row gap-3 items-end">
@@ -30,6 +30,8 @@
    />
     <livewire:inventario.create/>
     <livewire:inventario.edit/>
+    <livewire:inventario.delete/>
+    
     
     
 </div>

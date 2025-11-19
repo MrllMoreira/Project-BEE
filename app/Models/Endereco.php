@@ -23,4 +23,9 @@ class Endereco extends Model
         'complemento',
         'cep',
     ];
+    
+    public function unidades()
+    {
+        return $this->hasMany(Unidade::class, 'endereco_id', 'id');
+    }
 }

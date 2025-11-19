@@ -23,6 +23,10 @@ class UnidadeIndex extends Component
     public function dispatchOpenEditModal($id){
         $this->dispatch('dispatchOpenModalEditUnidade', $id);
     }
+    public function dispatchOpenDeleteModal($id){
+        
+        $this->dispatch('dispatchOpenModalDeleteUnidade', $id);
+    }
     public function with()
    {
         return [

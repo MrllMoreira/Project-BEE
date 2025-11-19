@@ -72,7 +72,7 @@
                             <td>
                                 <div class="flex gap-2">
                                     <x-ts-button wire:click='dispatchOpenEditModal({{$row->id}})' icon="pencil" color="gray" outline sm />
-                                    <x-ts-button icon="trash" color="red" sm/>
+                                    <x-ts-button wire:click='dispatchOpenDeleteModal({{$row->id}})' icon="trash" color="red" sm/>
                                 </div>
                             </td>
                         @else

@@ -12,22 +12,31 @@ use Livewire\Component;
 class EquipamentoIndex extends Component
 {
     use WithPagination;
-    public $quantity = 10; 
+    public $quantity = 5; 
     public $search = null; 
     public $statusFilter = null;
+    public $nome;
 
     public $id;
     public $idUnidade;
 
+    public function dispatchOpenCreateModal(){
+        $this->dispatch('dispatchOpenModalCreateEquipamento');
+    }
     public function dispatchOpenEditModal($id){
 
         $this->dispatch('dispatchOpenModalEditEquipamento', $id);
+    }
+    public function dispatchOpenDeleteModal($id){
+        
+        $this->dispatch('dispatchOpenModalDeleteEquipamento', $id);
     }
 
     public function mount($idUnidade,$id)
     {
         $this->id = $id;
         $this->idUnidade = $idUnidade;
+        $this->nome = Inventario::findOrfail($id)['nome'];
     }
     
     public function voltarInventarios() {

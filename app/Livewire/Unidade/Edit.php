@@ -10,23 +10,8 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $modal= false;
-    public $endereco = [
-        'cep' => '',
-        'localidade' => '',
-        'logradouro' => '',
-        'bairro' => '',
-        'uf' => '',
-    ];
-    public $cep;
-    public $ufs = [
-            ['name' => 'AC'], ['name' => 'AL'], ['name' => 'AP'], ['name' => 'AM'],
-            ['name' => 'BA'], ['name' => 'CE'], ['name' => 'DF'], ['name' => 'ES'],
-            ['name' => 'GO'], ['name' => 'MA'], ['name' => 'MT'], ['name' => 'MS'],
-            ['name' => 'MG'], ['name' => 'PA'], ['name' => 'PB'], ['name' => 'PR'],
-            ['name' => 'PE'], ['name' => 'PI'], ['name' => 'RJ'], ['name' => 'RN'],
-            ['name' => 'RS'], ['name' => 'RO'], ['name' => 'RR'], ['name' => 'SC'],
-            ['name' => 'SP'], ['name' => 'SE'], ['name' => 'TO'],
-        ];
+    public $ufs;
+
     public $unidade = [
     'id' => null,
     'nome' => '',
@@ -36,47 +21,62 @@ class Edit extends Component
     'celular' => '',
     'codigo_unidade' => '',
     'unidade_tipo_id' => null,
-    'endereco_id' => null,
-    'endereco' => null,
-    'ensino' => null
+    'enderecos' => [
+        'id' => null,
+        'uf' => '',
+        'regiao' => '',
+        'cidade' => '',
+        'bairro' => '',
+        'rua' => '',
+        'numero' => '',
+        'complemento' => '',
+        'cep' => '',
+    ],
 ];
     #[On('dispatchOpenModalEditUnidade')]
     public function openModal($id) {
        
-        $this->unidade = Unidade::join('enderecos', 'enderecos.id', '=', 'endereco_id')
-        ->where('unidades.id', '=', $id)->first();
-  
-        $this->endereco = [
-                    'localidade' => $this->unidade['localidade'] ?? '',
-                    'logradouro' => $this->unidade['rua'] ?? '',
-                    'bairro' => $this->unidade['bairro'] ?? '',
-                    'cidade' => $this->unidade['cidade'] ?? '',
-                    'uf' => $this->unidade['uf'] ?? '',
-                    'numero' => $this->unidade['numero'] ?? '',
-                ];
+        $this->unidade = Unidade::with('enderecos')
+        ->findOrFail($id)
+        ->toArray();
+        
+        
+        
         $this->modal = true;
        
         
     }
+    public function mount(){
+        $this->ufs = collect(['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'])
+        ->map(fn($uf)=>['label'=>$uf,'value'=>$uf])
+        ->toArray();
+    return $this->ufs;
+    }
 
-    public function updatedCep($value)
+    public function updatedUnidadeEnderecosCep($value)
     {
+       
         $cepValue = preg_replace('/[^0-9]/', '', $value);
 
         if (strlen($cepValue) === 8) {
             $data= Http::get("https://viacep.com.br/ws/{$cepValue}/json/")->json();
-            $this->endereco = [
-                    'localidade' => $data['localidade'] ?? '',
-                    'logradouro' => $data['logradouro'] ?? '',
+            
+            $endereco = [
+                    'rua' => $data['logradouro'] ?? '',
                     'bairro' => $data['bairro'] ?? '',
                     'cidade' => $data['localidade'] ?? '',
                     'uf' => $data['uf'] ?? '',
                 ];
+            $this->unidade['enderecos'] = array_merge(
+                $this->unidade['enderecos'],
+                $endereco
+            );
         }
     }
     
     public function render()
     {
+       
         return view('livewire.unidade.edit');
     }
 }

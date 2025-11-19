@@ -33,8 +33,8 @@ class Unidade extends Model
         return $this->belongsTo(UnidadeTipo::class);
     }
 
-    public function endereco()
+    public function enderecos()
     {
-        return $this->belongsTo(Endereco::class);
+        return $this->belongsTo(Endereco::class, 'endereco_id', 'id');
     }
 }

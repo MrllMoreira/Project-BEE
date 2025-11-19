@@ -23,14 +23,15 @@ class Edit extends Component
         "categoria" => '',
         'inventario_id' => '',
     ];
-    public $inventario_id;
-    public $unidade_id;
+    public $inventarios = [
+        ['label' => '', 'value' => '']
+    ];
 
+    public $unidade_id;
 
     #[On('dispatchOpenModalEditEquipamento')]
     public function OpenModal($id){
-        $this->unidade_id = request()->route('idUnidade');
-        $this->inventario_id = request()->route('id');
+        
         $this->equipamento = Equipamento::query()
                 ->join('inventario', 'inventario.id', '=', 'inventario_id')
                 ->join('categoria_equipamentos', 'categoria_id', '=', 'categoria_equipamentos.id')
@@ -41,24 +42,19 @@ class Edit extends Component
                 
                 ->select('inventario_id', 'codigo_patrimonio', 'equipamentos.id', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )->first();
 
+        $this->inventarios = Inventario::select('nome as label', 'id as value')
+            ->where('unidade_id', '=', $this->unidade_id)
+            ->get();
         
-
         $this->modal = true;
     }
  
-    public function with() {        
-        
-
-        return [
-            'unidades' => Unidade::select('nome as label', 'id as value')
-            ->get(),
-            'inventarios' => Inventario::select('nome as label', 'id as value')
-            ->where('id', '=', $this->unidade_id)
-            ->get()
-        ];
+    public function mount() {
+        $this->unidade_id = request()->route('idUnidade');
     }
+    
     public function render()
     {
-        return view('livewire.equipamento.edit', $this->with());
+        return view('livewire.equipamento.edit');
     }
 }

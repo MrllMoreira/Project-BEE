@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventario;
 
 use App\Models\Inventario;
+use App\Models\Unidade;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,11 @@ use Livewire\Component;
 class InventarioIndex extends Component
 {
     use WithPagination;
-    public $quantity = 10; 
+    public $quantity = 5; 
     public $search = null; 
     public $statusFilter = null;
     public $idUnidade;
+    public $nome;
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateInventario');
@@ -25,6 +27,10 @@ class InventarioIndex extends Component
     public function dispatchOpenEditModal($id){
         $this->dispatch('dispatchOpenModalEditInventario', $id);
     }
+    public function dispatchOpenDeleteModal($id){
+        
+        $this->dispatch('dispatchOpenModalDeleteInventario', $id);
+    }
     
     public function mount($id)
     {
@@ -32,14 +38,17 @@ class InventarioIndex extends Component
             abort(403, 'Não autorizado.');
         }
         $this->idUnidade = $id;
+        $this->nome = Unidade::findOrfail($id)['nome'];
+        
     }
+    
     public function with(): array
    {
     
         return [
             'headers' => [
                 ['index' => 'nome', 'label' => 'Nome'],
-                ['index' => 'status', 'label' => 'Status', 'responsive' => true],
+                ['index' => 'status', 'label' => 'Status'],
                 ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Inventario::query()

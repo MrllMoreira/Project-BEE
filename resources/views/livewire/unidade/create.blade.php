@@ -1,88 +1,180 @@
-<x-ts-modal title="Criar unidade" center wire >
-    
-    <form method="POST" ">
-            @csrf
-            <x-ts-step helpers navigate-previous selected="1">
+<div>
+    <x-ts-modal title="Criar unidade" center wire class="p-0">
 
-            <x-ts-step.items step="1" title="Identificação">
-                <div>
-                    <div class="flex flex-row gap-5">
-                        <div class="mt-4 w-2/3">
-                            <x-ts-input label="Nome *"  id="nome" class="block mt-1 w-full" type="text" required autofocus/>
-                        </div>
-                        
-                        <div class="mt-4 w-1/3">
-                            <x-ts-select.styled :options="[
+    {{-- BARRA DE PROGRESSO --}}
+    <div class="w-full flex justify-between mt-4 select-none relative">
+
+        @php
+            $stepsLabels = [
+                1 => 'Identificação',
+                2 => 'Contato',
+                3 => 'Endereço',
+            ];
+        @endphp
+
+        <div class="flex w-full items-center justify-between">
+            @foreach ($stepsLabels as $num => $label)
+                <div class="relative flex items-center justify-center flex-1">
+
+                    {{-- LINHA ESQUERDA --}}
+                    @if($num !== 1)
+                        <div class="absolute left-0 top-1/2 w-1/2 h-[2px] @if($step >= $num) bg-amber-500 @else bg-gray-300 @endif"></div>
+                    @endif
+
+                    {{-- LINHA DIREITA --}}
+                    @if($num !== count($stepsLabels))
+                        <div class="absolute right-0 top-1/2 w-1/2 h-[2px] @if($step > $num) bg-amber-500 @else bg-gray-300 @endif"></div>
+                    @endif
+
+                    {{-- BOLINHA --}}
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold z-10
+                        @if($step >= $num) bg-amber-500 @else bg-gray-300 @endif">
+                        {{ $num }}
+                    </div>
+
+                    {{-- TÍTULO CENTRALIZADO NA BOLINHA --}}
+                    <span class="absolute top-12 left-1/2 -translate-x-1/2 text-sm font-medium whitespace-nowrap
+                        @if($step >= $num) text-amber-600 @else text-gray-500 @endif">
+                        {{ $label }}
+                    </span>
+
+                </div>
+            @endforeach
+        </div>
+
+    </div>
+
+    {{-- CONTEUDO --}}
+    <div class="mt-10 px-4 pb-2">
+
+        {{-- IDENTIFICAÇÃO --}}
+        @if($step === 1)
+            <div>
+
+                <div class="flex flex-row gap-5">
+                    <div class="mt-4 w-1/2">
+                        <x-ts-input wire:model.defer="unidade.codigo" class="block mt-1 w-full"
+                            type="text" label="Codigo da unidade *" required />
+                    </div>
+
+                    <div class="mt-4 w-1/2">
+                        <x-ts-select.styled
+                            :options="[
                                 ['label' => 'Fundamental I', 'value' => 1],
                                 ['label' => 'Fundamental II', 'value' => 2],
-                                ['label' => 'Fundamental I e II', 'value' => 3],]" 
-                        label="Ensino *" class="block mt-1 w-full" required/>
-                        </div>
-                </div>
-                    <div class="flex flex-row gap-5">
-                        <div class="mt-4 w-1/3">
-                            <x-ts-input id="codigo" class="block mt-1 w-full" type="text" label="Codigo da unidade *" required />
-                        </div>
-                        
-                        <div class="mt-4 w-2/3">
-                            <x-ts-input id="responsavel" class="block mt-1 w-full" type="text" label="Responsavel *" required />
-                        </div>
+                                ['label' => 'Fundamental I e II', 'value' => 3]
+                            ]"
+                            label="Ensino *"
+                            class="block mt-1 w-full"
+                            required
+                            wire:model.defer='unidade.ensino'
+                        />
                     </div>
                 </div>
-            </x-ts-step.items>
 
-            <x-ts-step.items step="2" title="Contato">
-                <div class="flex flex-row gap-5">
-                    <div class="mt-4 w-1/2">
-                        <x-ts-input id="telefone" class="block mt-1 w-full" type="tel" label="Telefone *" required />
-                    </div>
-
-                    <div class="mt-4 w-1/2">
-                        <x-ts-input id="celular" class="block mt-1 w-full" type="tel" label="Celular" required />
-                    </div>
-                </div>
                 <div class="mt-4">
-                    <x-ts-input id="email" class="block mt-1 w-full" type="email" label="Email *" required />
+                    <x-ts-input label="Nome *" wire:model.defer="unidade.nome"
+                        class="block mt-1 w-full" type="text" required autofocus/>
                 </div>
-            
-            </x-ts-step.items>
 
-            <x-ts-step.items step="3" title="Endereço" class="relative">
-                <div class="flex flex-row gap-5">
-                    <div class="mt-4 w-1/5">
-                        <x-ts-input id="cep" class="block mt-1 w-full" type="text" label="CEP *" required placeholder="_____-___" wire:model="cep" maxlength="9" />
-                    </div>
-                    <div class="mt-4 w-3/5">
-                        <x-ts-input id="cidade" class="block mt-1 w-full" type="text" label="Cidade *" required wire:model="endereco.localidade"/>
-                    </div>
-                    <div class="mt-4 w-1/5">
-                        <x-ts-select.styled class="block mt-1 w-full" id="uf" :options="$ufs"
-                        select="label:name|value:name"
-                        label="UF *" required wire:model.live="endereco.uf"/>
-                    </div>
+                <div class="mt-4">
+                    <x-ts-input wire:model.defer="unidade.responsavel"
+                        class="block mt-1 w-full" type="text" label="Responsavel *" required />
                 </div>
-            
-                <div class="flex flex-row gap-5">
-                    <div class="mt-4 w-3/5">
-                        <x-ts-input id="rua" class="block mt-1 w-full" type="text" label="Rua *" required wire:model="endereco.logradouro"/>
-                    </div>
-                    <div class="mt-4 w-1/5">
-                        <x-ts-input id="numero" class="block mt-1 w-full" type="text" label="Número *" required />
-                    </div>
-                    <div class="mt-4 ">
-                        <x-ts-input id="bairro" class="block mt-1 w-full" type="text" label="Bairro *" required wire:model="endereco.bairro"/>
-                    </div>
-                </div>
-            
 
-               
-                <div class="flex items-center justify-end absolute right-7 bottom-8">
-                    <x-button  type="submit">
+                <div class="flex justify-end mt-4">
+                    <x-ts-button wire:click="$set('step', 2)" outline color='black' >Próximo</x-ts-button>
+                </div>
+
+            </div>
+        @endif
+
+        {{-- CONTATO --}}
+        @if($step === 2)
+            <div>
+
+                <div class="flex flex-row gap-5">
+                    <div class="mt-4 w-1/2">
+                        <x-ts-input wire:model.defer="unidade.telefone"
+                            class="block mt-1 w-full" type="tel" label="Telefone *" required />
+                    </div>
+
+                    <div class="mt-4 w-1/2">
+                        <x-ts-input wire:model.defer="unidade.celular"
+                            class="block mt-1 w-full" type="tel" label="Celular" required />
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <x-ts-input wire:model.defer="unidade.email"
+                        class="block mt-1 w-full" type="email" label="Email *" required />
+                </div>
+
+                <div class="flex justify-between mt-4">
+                    <x-ts-button wire:click="$set('step', 1)" outline color='black'>Voltar</x-ts-button>
+                    <x-ts-button wire:click="$set('step', 3)" outline color='black'>Próximo</x-ts-button>
+                </div>
+
+            </div>
+        @endif
+
+        {{-- ENDEREÇO --}}
+        @if($step === 3)
+            <div class="relative">
+
+                <div class="flex flex-row gap-5">
+                    <div class="mt-4 w-2/5">
+                        <x-ts-input wire:model.live="endereco.cep"
+                            class="block mt-1 w-full" type="text"
+                            label="CEP *" required placeholder="_____-___" maxlength="9" />
+                    </div>
+
+                    <div class="mt-4 w-2/5">
+                        <x-ts-input wire:model.defer="cidade"
+                            class="block mt-1 w-full" type="text"
+                            label="Cidade *" required wire:model.defer="endereco.localidade"/>
+                    </div>
+
+                    <div class="mt-4 w-1/5">
+                        <x-ts-select.styled class="block mt-1 w-full"
+                            wire:model.defer="uf" :options="$ufs"
+                            select="label:name|value:name"
+                            label="UF *" required wire:model.live="endereco.uf"/>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-5">
+                    <div class="mt-4 w-3/5">
+                        <x-ts-input class="block mt-1 w-full" type="text"
+                            label="Rua *" required wire:model.defer="endereco.logradouro"/>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-ts-input class="block mt-1 w-full" type="text"
+                            label="Bairro *" required wire:model.defer="endereco.bairro"/>
+                    </div>
+
+                    <div class="mt-4 w-1/5">
+                        <x-ts-input class="block mt-1 w-full" type="text"
+                            label="Número *" required wire:model.defer="endereco.numero"/>
+                    </div>
+
+                    
+                </div>
+
+                <div class="flex justify-between mt-4">
+                    <x-ts-button wire:click="$set('step', 2)" outline color='black'>Voltar</x-ts-button>
+
+                    <x-button wire:click='createUnidade'>
                         Criar
                     </x-button>
                 </div>
-            </x-ts-step.items>
-        </x-ts-step>
-                    
-        </form>
+
+            </div>
+        @endif
+
+    </div>
+
 </x-ts-modal>
+
+</div>
