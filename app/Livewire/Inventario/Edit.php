@@ -12,11 +12,12 @@ class Edit extends Component
     public $inventario = [
         'nome' => '',
         'status' =>'',
+        'descricao' =>'',
     ];
     #[On('dispatchOpenModalEditInventario')]
     public function openModal($id) {
-        $this->inventario = Inventario::select("nome", "status")
-        ->where("id", '=', $id)
+        $this->inventario = Inventario::select("nome", "status", "descricao")
+        ->where("id", $id)
         ->first()->toArray();
 
         $this->modal = true;

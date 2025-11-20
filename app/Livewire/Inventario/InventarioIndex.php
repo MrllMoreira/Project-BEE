@@ -22,23 +22,22 @@ class InventarioIndex extends Component
         $this->dispatch('dispatchOpenModalCreateInventario');
     }
      public function dispatchOpenShowInfos($id){
-        redirect()->route('equipamento', ['idUnidade' =>$this->idUnidade, 'id'=> $id]);
+        redirect()->route('equipamento', ['idUnidade' =>$this->idUnidade, 'idInventario'=> $id]);
     }
     public function dispatchOpenEditModal($id){
         $this->dispatch('dispatchOpenModalEditInventario', $id);
     }
     public function dispatchOpenDeleteModal($id){
-        
         $this->dispatch('dispatchOpenModalDeleteInventario', $id);
     }
     
-    public function mount($id)
+    
+
+    public function mount($idUnidade)
     {
-        if (Auth::user()->roles_id != 1 && $id != Auth::user()->unidade_id) {
-            abort(403, 'Não autorizado.');
-        }
-        $this->idUnidade = $id;
-        $this->nome = Unidade::findOrfail($id)['nome'];
+        
+        $this->idUnidade = $idUnidade;
+        $this->nome = Unidade::findOrfail($idUnidade)['nome'];
         
     }
     
@@ -49,19 +48,18 @@ class InventarioIndex extends Component
             'headers' => [
                 ['index' => 'nome', 'label' => 'Nome'],
                 ['index' => 'status', 'label' => 'Status'],
+                ['index' => 'descricao', 'label' => 'Descricao', 'responsive' => true],
                 ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Inventario::query()
-                ->join('inventario_status', 'inventario.status', '=', 'inventario_status.id')
-                ->select('inventario.nome', 'inventario_status.nome as status', 'inventario.id')
-                ->where('inventario.unidade_id', '=', $this->idUnidade)
+                ->where('unidade_id', $this->idUnidade)
                 ->when($this->search, function (Builder $query) {
-                    return $query->where('inventario.nome', 'like', "%{$this->search}%");
+                    return $query->whereRaw('LOWER(inventario.nome)', 'like', "%{$this->search}%");
                 })
                 ->when($this->statusFilter, function (Builder $query) {
-                    return $query->where('inventario_status.id', $this->statusFilter);
+                    return $query->where('status', $this->statusFilter);
                 })
-                ->orderBy('inventario.nome', 'asc')
+                ->orderBy('nome')
                 ->paginate($this->quantity)
                 ->withQueryString(),
         ];
@@ -70,4 +68,10 @@ class InventarioIndex extends Component
     {        
         return view('livewire.inventario.inventario-index', $this->with());
     }
+
+    public function updatedSearch(){$this->resetPage();}
+
+    public function updatedStatusFilter(){$this->resetPage();}
+
+    public function updatedQuantity(){$this->resetPage();}
 }

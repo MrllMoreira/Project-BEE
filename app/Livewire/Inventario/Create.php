@@ -11,6 +11,7 @@ class Create extends Component
     public $inventario = [
         'nome' => '',
         'status' =>'',
+        'descricao' =>'',
     ];
     #[On('dispatchOpenModalCreateInventario')]
     public function OpenModal(){
