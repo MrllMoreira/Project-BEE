@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
          $middleware->alias([
         'admin.acesso' => \App\Http\Middleware\CheckAdmin::class,
-        'secretari.acesso' => \App\Http\Middleware\CheckSecretaria::class,
+        'secretaria.acesso' => \App\Http\Middleware\CheckSecretaria::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

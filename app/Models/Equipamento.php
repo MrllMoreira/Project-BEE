@@ -16,4 +16,9 @@ class Equipamento extends Model
         'inventario_id',
         'descricao',
     ];
+
+    public function inventario()
+    {
+        return $this->belongsTo(Inventario::class, 'inventario_id');
+    }
 }

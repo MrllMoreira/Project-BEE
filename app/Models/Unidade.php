@@ -28,13 +28,15 @@ class Unidade extends Model
     ];
 
 
-    public function unidade_tipo()
+   
+
+    public function endereco()
     {
-        return $this->belongsTo(UnidadeTipo::class);
+        return $this->belongsTo(Endereco::class, 'endereco_id');
     }
 
-    public function enderecos()
+    public function responsavelUser()
     {
-        return $this->belongsTo(Endereco::class, 'endereco_id', 'id');
+        return $this->belongsTo(User::class, 'responsavel');
     }
 }

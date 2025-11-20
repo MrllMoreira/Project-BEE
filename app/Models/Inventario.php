@@ -11,13 +11,10 @@ class Inventario extends Model
     protected $fillable = [
         'nome',
         'unidade_id',
+        'descricao',
         'status',
         'created_by',
         'updated_by',
     ];
 
-    public function statusInventario()
-    {
-        return $this->belongsTo(InventarioStatus::class, 'status');
-    }
 }

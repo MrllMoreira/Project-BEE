@@ -52,6 +52,24 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+     public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
+     * Check if user has a specific role
+     */
+    public function hasRole($roleName)
+    {
+        return $this->role && $this->role->nome === $roleName;
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
