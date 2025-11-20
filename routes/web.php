@@ -29,19 +29,23 @@ Route::get('/', function () {
 // });
 
 
-Route::get('/dashboard', Index::class)->name('dashboard');
+Route::middleware(['auth', 'secretaria.acesso'])->group(function () {
+    Route::get('/{idUnidade}/inventario', InventarioIndex::class)->name('inventario');  
+    Route::get('/{idUnidade}/inventario/{idInventario}/equipamentos', EquipamentoIndex::class)->name('equipamento');
+    Route::get('{idUnidade}/inventario/{idInventario}/equipamentos/{id}', EquipamentosShow::class)->name('equipamento.show');
 
-Route::get('/documentos', DocumentosIndex::class)->name('documentos');  
+    Route::get('/unidade', UnidadeIndex::class)->name('unidade');  
+    Route::get('/unidade/{id}', UnidadeShow::class)->name('unidade.show');  
+});
 
-Route::get('/{id}/inventario', InventarioIndex::class)->name('inventario');  
+Route::middleware(['auth', 'admin.acesso'])->group(function () { 
+    Route::get('/usuario', UsuarioIndex::class)->name('usuario');  
+    Route::get('/usuario/{id}', UsuarioShow::class)->name('usuario.show');  
+});
 
-Route::get('/{idUnidade}/inventario/{id}/equipamentos', EquipamentoIndex::class)->name('equipamento');
-Route::get('{idUnidade}/inventario/{idInventario}/equipamentos/{id}', EquipamentosShow::class)->name('equipamento.show');
 
-
-Route::get('/unidade', UnidadeIndex::class)->name('unidade');  
-Route::get('/unidade/{id}', UnidadeShow::class)->name('unidade.show');  
-
-Route::get('/usuario', UsuarioIndex::class)->name('usuario');  
-Route::get('/usuario/{id}', UsuarioShow::class)->name('usuario.show');  
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', Index::class)->name('dashboard');
+    Route::get('/documentos', DocumentosIndex::class)->name('documentos');  
+});
 
