@@ -16,6 +16,7 @@ class Edit extends Component
     public $modal = false;
     public $transferirEquipamento = false;
     public $equipamento = [
+        'nome'=> '',
         "codigo_patrimonio" => '',
         'descricao' => '',
         "marca" => '',
@@ -33,17 +34,8 @@ class Edit extends Component
     public function OpenModal($id){
         
         $this->equipamento = Equipamento::query()
-                ->join('inventario', 'inventario.id', '=', 'inventario_id')
-                ->join('categoria_equipamentos', 'categoria_id', '=', 'categoria_equipamentos.id')
-                ->join('marcas_equipamentos', 'marca_id', '=', 'marcas_equipamentos.id')
-                ->join('equipamentos_status', 'status_id', '=', 'equipamentos_status.id')
-                
-                ->where('equipamentos.id', '=', $id)
-                
-                ->select('inventario_id', 'equipamentos.descricao', 'codigo_patrimonio', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria' )->first()->toArray();
-
-        
-        
+                ->where('id', $id)
+                ->select('inventario_id', 'equipamentos.descricao', 'codigo_patrimonio', 'marca', 'equipamentos.status as status', 'equipamentos.nome as nome', 'categoria')->first()->toArray();
         $this->modal = true;
     }
  

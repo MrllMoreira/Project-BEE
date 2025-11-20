@@ -14,8 +14,8 @@ class Show extends Component
 {
     public $modal = false;
     public $equipamento = [
+        'nome' => '',
         "codigo_patrimonio" => '',
-        "id" => 0,
         "marca" => '',
         "status" => '',
         "categoria" => '',
@@ -26,15 +26,13 @@ class Show extends Component
     public function OpenModal($id){
 
         $this->equipamento = Equipamento::query()
-                ->join('inventario', 'inventario.id', '=', 'inventario_id')
-                ->join('categoria_equipamentos', 'categoria_id', '=', 'categoria_equipamentos.id')
-                ->join('marcas_equipamentos', 'marca_id', '=', 'marcas_equipamentos.id')
-                ->join('equipamentos_status', 'status_id', '=', 'equipamentos_status.id')
-                
-                ->where('equipamentos.id', '=', $id)
-                
-                ->select('codigo_patrimonio', 'equipamentos.id', 'equipamentos.descricao',  'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )->first()->toArray();
-
+        ->where('id', $id)
+        ->select([
+            'id','nome', 'codigo_patrimonio', 'descricao','marca', 
+            'status','categoria', 'updated_at as atualizadoEm'
+        ])
+        ->first()
+        ->toArray();
         $this->modal = true;
     }
     public function render()

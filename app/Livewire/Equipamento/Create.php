@@ -9,16 +9,15 @@ class Create extends Component
 {
     public $modal = false;
     public $equipamento = [
-        'id' => null,
         'codigo_patrimonio' => '',
         'marca' => '',
         'categoria' => '',
         'status' => '',
         'descricao' => '',
         ];
+
     #[On('dispatchOpenModalCreateEquipamento')]
     public function OpenModal(){
-
         $this->modal = true;
     }
     public function createEquipamento(){

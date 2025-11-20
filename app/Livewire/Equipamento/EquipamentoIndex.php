@@ -24,27 +24,30 @@ class EquipamentoIndex extends Component
         $this->dispatch('dispatchOpenModalCreateEquipamento');
     }
     public function dispatchOpenEditModal($id){
-
         $this->dispatch('dispatchOpenModalEditEquipamento', $id);
     }
     public function dispatchOpenDeleteModal($id){
-        
         $this->dispatch('dispatchOpenModalDeleteEquipamento', $id);
     }
-
-    public function mount($idUnidade,$id)
-    {
-        $this->id = $id;
-        $this->idUnidade = $idUnidade;
-        $this->nome = Inventario::findOrfail($id)['nome'];
+    public function dispatchOpenShowInfos($id){
+        $this->dispatch('dispatchOpenModalShowEquipamentos', $id);
     }
-    
+
     public function voltarInventarios() {
         redirect()->route('inventario', $this->idUnidade);
     }
-     public function dispatchOpenShowInfos($id){
-        $this->dispatch('dispatchOpenModalShowEquipamentos', $id);
+
+
+    public function mount($idUnidade,$idInventario)
+    {
+        $this->id = $idInventario;
+        $this->idUnidade = $idUnidade;
+        $this->nome = Inventario::findOrfail($idInventario)['nome'];
     }
+    
+
+
+ 
  
     public function with(): array
    {
@@ -53,42 +56,44 @@ class EquipamentoIndex extends Component
             'headers' => [
                 ['index' => 'id', 'label' => 'Id'],
                 ['index' => 'codigo_patrimonio', 'label' => 'Codigo'],
-                ['index' => 'categoria', 'label' => 'Categoria'],
-                ['index' => 'marca', 'label' => 'marca', 'responsive' => true],
+                ['index' => 'nomeEquipamento', 'label' => 'Nome'],
                 ['index' => 'status', 'label' => 'Status'],
+                ['index' => 'categoria', 'label' => 'Categoria', 'responsive' => true],
+                ['index' => 'marca', 'label' => 'marca', 'responsive' => true],
                 ['index' => 'atualizadoEm', 'label' => 'Atualizado em', 'responsive' => true],
                 ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Equipamento::query()
-                ->join('inventario', 'inventario.id', '=', 'inventario_id')
-                ->join('categoria_equipamentos', 'categoria_id', '=', 'categoria_equipamentos.id')
-                ->join('marcas_equipamentos', 'marca_id', '=', 'marcas_equipamentos.id')
-                ->join('equipamentos_status', 'status_id', '=', 'equipamentos_status.id')
-                
-                ->where('inventario_id', '=', $this->id)
-                ->when(Auth::user()->role != 1, function ($q) {
-                    $q->where('inventario.unidade_id', Auth::user()->unidade_id);
-                })
-                ->when($this->search, function (Builder $query) {
-                    $search = "%{$this->search}%";
-
-                    return $query->where(function ($q) use ($search) {
-                        $q->where('equipamentos.codigo_patrimonio', 'like', $search)
-                        ->orWhere('categoria_equipamentos.nome', 'like', $search)
-                        ->orWhere('equipamentos_status.nome', 'like', $search);
-                    });
-                })
-                ->when($this->statusFilter, function (Builder $query) {
-                    return $query->where('equipamentos_status.id', $this->statusFilter);
-                })
-                ->orderBy('equipamentos.id', 'asc')
-                ->select('codigo_patrimonio', 'equipamentos.id', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )
-                ->paginate($this->quantity)
-                ->withQueryString(),
+            ->with(['inventario:id,nome,unidade_id'])
+            ->where('inventario_id', $this->id)
+            ->when($this->search, function (Builder $query) {
+                $search = strtolower($this->search);
+                return $query->where(function ($q) use ($search) {
+                    $q->whereRaw('LOWER(equipamentos.codigo_patrimonio) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(equipamentos.nome) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(equipamentos.categoria) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(equipamentos.marca) LIKE ?', ["%{$search}%"]);
+                });
+            })
+            ->when($this->statusFilter, function (Builder $query) {
+                return $query->where('equipamentos.status', $this->statusFilter);
+            })
+            ->select([
+                'equipamentos.id','equipamentos.nome as nomeEquipamento','codigo_patrimonio', 
+                'marca', 'status', 'categoria', 'updated_at as atualizadoEm',
+                ])
+            ->orderBy('equipamentos.id', 'asc')
+            ->paginate($this->quantity)
+            ->withQueryString(),
         ];
     }
     public function render()
     {
         return view('livewire.equipamento.equipamento-index', $this->with());
     }
+    public function updatedSearch(){$this->resetPage();}
+
+    public function updatedStatusFilter(){$this->resetPage();}
+
+    public function updatedQuantity(){$this->resetPage();}
 }
