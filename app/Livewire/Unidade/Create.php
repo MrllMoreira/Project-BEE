@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Unidade;
 
+use App\Enums\UFEnum;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,7 +20,7 @@ class Create extends Component
     'email' => '',
     'celular' => '',
     'codigo_unidade' => '',
-    'unidade_tipo_id' => null,
+    'ensino_tipo' => null,
     'endereco' => [
         'uf' => '',
         'cidade' => '',
@@ -57,15 +58,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->ufs = [
-            ['name' => 'AC'], ['name' => 'AL'], ['name' => 'AP'], ['name' => 'AM'],
-            ['name' => 'BA'], ['name' => 'CE'], ['name' => 'DF'], ['name' => 'ES'],
-            ['name' => 'GO'], ['name' => 'MA'], ['name' => 'MT'], ['name' => 'MS'],
-            ['name' => 'MG'], ['name' => 'PA'], ['name' => 'PB'], ['name' => 'PR'],
-            ['name' => 'PE'], ['name' => 'PI'], ['name' => 'RJ'], ['name' => 'RN'],
-            ['name' => 'RS'], ['name' => 'RO'], ['name' => 'RR'], ['name' => 'SC'],
-            ['name' => 'SP'], ['name' => 'SE'], ['name' => 'TO'],
-        ];
+        $this->ufs = UFEnum::selectOptions();
         return $this->ufs;
     }
 

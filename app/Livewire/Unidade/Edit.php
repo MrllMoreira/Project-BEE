@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Unidade;
 
+use App\Enums\UFEnum;
 use Illuminate\Support\Facades\Http;
 use App\Models\Unidade;
+use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -11,6 +13,9 @@ class Edit extends Component
 {
     public $modal= false;
     public $ufs;
+    public $responsaveis = [
+
+    ];
 
     public $unidade = [
     'id' => null,
@@ -20,8 +25,8 @@ class Edit extends Component
     'email' => '',
     'celular' => '',
     'codigo_unidade' => '',
-    'unidade_tipo_id' => null,
-    'enderecos' => [
+    'ensino_tipo' => null,
+    'endereco' => [
         'uf' => '',
         'regiao' => '',
         'cidade' => '',
@@ -33,22 +38,27 @@ class Edit extends Component
 ];
     #[On('dispatchOpenModalEditUnidade')]
     public function openModal($id) {
-       
-        $this->unidade = Unidade::with('enderecos')
+        $this->reset('unidade');
+        $this->unidade = Unidade::with('endereco')
         ->findOrFail($id)
         ->toArray();
-        
-        
         
         $this->modal = true;
        
         
     }
     public function mount(){
-        $this->ufs = collect(['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'])
-        ->map(fn($uf)=>['label'=>$uf,'value'=>$uf])
+        $this->ufs = UFEnum::selectOptions();
+
+        $this->responsaveis = User::with('role:id,nome')
+        ->whereHas('role', function($query) {
+            $query->where('nome', 'diretor');
+        })
+        ->select('id as value', 'nome as label') 
+        ->get()
         ->toArray();
-    return $this->ufs;
+
+        return $this->ufs;
     }
 
     public function updatedUnidadeEnderecosCep($value)
@@ -77,7 +87,6 @@ class Edit extends Component
     
     public function render()
     {
-       
         return view('livewire.unidade.edit');
     }
 }

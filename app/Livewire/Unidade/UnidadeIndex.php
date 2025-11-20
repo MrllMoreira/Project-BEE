@@ -17,16 +17,20 @@ class UnidadeIndex extends Component
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUnidade');
     }
-     public function dispatchOpenShowInfos($id){
+    public function dispatchOpenShowInfos($id){
         $this->dispatch('dispatchOpenModalShowUnidade', $id);
     }
+
     public function dispatchOpenEditModal($id){
         $this->dispatch('dispatchOpenModalEditUnidade', $id);
     }
+
     public function dispatchOpenDeleteModal($id){
-        
         $this->dispatch('dispatchOpenModalDeleteUnidade', $id);
     }
+
+    
+
     public function with()
    {
         return [
@@ -38,15 +42,17 @@ class UnidadeIndex extends Component
                 ['index' => 'actions', 'label' => 'Ações'],
             ],
             'rows' => Unidade::query()
-                ->join('unidades_tipo', 'unidades.unidade_tipo_id', '=', 'unidades_tipo.id')
-                ->select('unidades.*', 'unidades_tipo.nome as tipo_nome')
                 ->when($this->search, function (Builder $query) {
-                    return $query->where('unidades.nome', 'like', "%{$this->search}%");
+                    $search = strtolower($this->search);
+                    return $query->where(function (Builder $query) use ($search) {
+                        $query->whereRaw('LOWER(nome) LIKE ?', ["%{$search}%"])
+                            ->orWhereRaw('LOWER(codigo_unidade) LIKE ?', ["%{$search}%"]);
+                    });
                 })
-                ->orderBy('unidades.id', 'asc')
                 ->when($this->ensinoFilter, function (Builder $query) {
-                    return $query->where('unidades_tipo.id', $this->ensinoFilter);
+                    return $query->where('ensino_tipo', $this->ensinoFilter);
                 })
+                ->orderBy('nome', 'asc') 
                 ->paginate($this->quantity)
                 ->withQueryString(),
         ];
@@ -56,4 +62,10 @@ class UnidadeIndex extends Component
     {
         return view('livewire.unidade.unidade-index', $this->with());
     }
+
+    public function updatedSearch(){$this->resetPage();}
+
+    public function updatedEnsinoFilter(){$this->resetPage();}
+
+    public function updatedQuantity(){$this->resetPage();}
 }
