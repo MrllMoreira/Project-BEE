@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('assinaturas', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->timestamp("assinado_em"); 
+            $table->boolean("assinado")->default(false); 
 
-            $table->foreignId("user_id")->constrained('users')->onDelete('cascade');
+            $table->foreignId("assinado_por")->constrained('users')->onDelete('cascade');
             $table->foreignId("documento_id")->constrained('documentos')->onDelete('cascade');
 
             $table->timestamps();

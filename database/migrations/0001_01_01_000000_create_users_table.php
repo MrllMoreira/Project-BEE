@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('email')->unique();
-            $table->string('cpf');
-            $table->string('matricula')->unique(); // aqui deve ser unique
+            $table->string('nome', 50);
+            $table->string('email', 50)->unique();
+            $table->string('cpf', 14);
+            $table->string('matricula',20)->unique(); 
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('current_team_id')->nullable();

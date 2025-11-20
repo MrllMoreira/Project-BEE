@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('unidades', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nome');
-            $table->string('codigo_unidade')->unique(); //deve ser unico
+            $table->string('codigo_unidade')->unique();
 
             $table->string('telefone');
-            $table->string('celular');
-            $table->string('email')->unique(); //deve ser unico
+            $table->string('celular')->nullable();
+            $table->string('email')->unique();
+            $table->string('ensino_tipo');
             
-            $table->foreignId('unidade_tipo_id')->constrained('unidades_tipo');
             $table->foreignId('endereco_id')->constrained('enderecos');
-            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('created_by')->constrained('users')->nullable();
             $table->foreignId('updated_by')->constrained('users');
-            $table->string('responsavel')->constrained('users');
+            $table->string('responsavel')->constrained('users')->nullable();
             $table->timestamps();
             
 

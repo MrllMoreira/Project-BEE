@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('marcas_equipamentos', function (Blueprint $table) {
+        Schema::create('equipamento_eventos', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("nome")->unique(); 
             
+            $table->foreignId('evento_id')->constrained('eventos');
+            $table->foreignId('equipamento_id')->constrained('equipamentos');
+            $table->timestamps();
+
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('marcas_equipamentos');
+        Schema::dropIfExists('equipamento_eventos');
     }
 };

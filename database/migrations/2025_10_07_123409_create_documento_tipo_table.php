@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('documento_tipo', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("nome")->unique();
-            $table->string("descricao");
-            $table->timestamps(); //todas as tabelas devem contar o timestamps
+            $table->string("nome", 50)->unique();
+            $table->string("descricao", 255);
+            $table->timestamps();
         });
     }
 

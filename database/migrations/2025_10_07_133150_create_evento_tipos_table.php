@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipamentos_status', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string("nome")->unique();
-            $table->string("descricao");
-            $table->timestamps(); //todas as tabelas devem contar o timestamps
+        Schema::create('evento_tipos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->string('descricao')->nullable();
+            $table->timestamps();
+
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipamentos_status');
+        Schema::dropIfExists('evento_tipos');
     }
 };

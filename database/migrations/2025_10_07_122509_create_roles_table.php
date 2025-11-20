@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("nome")->unique();
+            $table->string("nome", 50)->unique();
             $table->timestamps();
         });
     }

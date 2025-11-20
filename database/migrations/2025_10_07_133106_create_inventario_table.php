@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventario', function (Blueprint $table) {
-            $table->id()->autoIncrement(); // nao é obrigatorio ser auto increment porque por padrao o id ja é , mas se quiser deixar tudo bem
+            $table->id();
             $table->string("nome");
+            $table->string("descricao")->nullable();
+            $table->string("status");
+
             $table->foreignId("unidade_id")->constrained('unidades');
-            $table->foreignId("status")->constrained('inventario_status');
             $table->foreignId("created_by")->constrained('users');
             $table->foreignId("updated_by")->constrained('users');
             $table->timestamps();

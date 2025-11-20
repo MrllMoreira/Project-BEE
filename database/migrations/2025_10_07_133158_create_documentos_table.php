@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
             $table->string('documento_path');
-            $table->foreignId('documento_tipo_id')->nullable()->constrained('documento_tipo')->onDelete('cascade');
-            $table->foreignId('trigger_id')->constrained('equipamento_trigger')->onDelete('cascade');
+
+            $table->foreignId('documento_tipo_id')->constrained('documento_tipo');
+            $table->foreignId('evento_id')->constrained('eventos');
+
+            
             $table->timestamps();
 
         });

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('equipamentos', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('codigo_patrimonio')->nullable()->unique();// codigo no patrimonio tem que ser unique certo? e porque ele pode ser nullabe? documentos devem ter sempre o codigo certo?
-            $table->text('descricao')->nullable();
+            $table->id();
+            $table->string('nome');
+            $table->string('codigo_patrimonio')->nullable()->unique();
+            $table->string('descricao')->nullable();
+            $table->string('marca');
+            $table->string('categoria');
+            $table->string('status');
             
-            $table->foreignId('categoria_id')->constrained('categoria_equipamentos');
-            $table->foreignId('marca_id')->constrained('marcas_equipamentos');
-            $table->foreignId('status_id')->constrained('equipamentos_status');
             $table->foreignId('inventario_id')->constrained('inventario');
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
 

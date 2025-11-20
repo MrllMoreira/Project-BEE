@@ -16,14 +16,12 @@ return new class extends Migration
             $table->enum("uf", ["AC","AL","AM","AP","BA","CE","DF","ES",
                 "GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ",
                 "RN","RO","RR","RS","SC","SE","SP","TO"]);
-            $table->string("regiao");
             $table->string("cidade");
             $table->string("bairro");
             $table->string("rua");
             $table->integer("numero");
-            $table->text("complemento");
             $table->string("cep");
-            $table->timestamps(); //todas as tabelas devem contar o timestamps
+            $table->timestamps();
         });
     }
 

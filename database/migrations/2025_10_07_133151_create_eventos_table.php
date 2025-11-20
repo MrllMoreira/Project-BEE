@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventario_statuses', function (Blueprint $table) {
+        Schema::create('eventos', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->default('Pendente');
+            $table->json('dados');
             $table->timestamps();
+
+            $table->foreignId('evento_tipo_id')->constrained('evento_tipos');
+            $table->foreignId('criado_por')->constrained('users');
+
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventario_statuses');
+        Schema::dropIfExists('eventos');
     }
 };
