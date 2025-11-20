@@ -14,15 +14,15 @@
                 <div class="w-full sm:min-w-[220px]">
                     <x-ts-select.styled :options="[
                         ['label' => 'Todas', 'value' => null],
-                        ['label' => 'Fundamental I', 'value' => 1],
-                        ['label' => 'Fundamental II', 'value' => 2],
-                        ['label' => 'Fundamental I e II', 'value' => 3],]"
+                        ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
+                        ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
+                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],]"
                         label="Ensino"
                         wire:model.live="ensinoFilter"
                     />
                 </div>
 
-                @if (Auth::user()->roles_id == 1)
+                @if (Auth::user()->role_id == 1)
                     <button
                         class="flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white h-[42px] w-[42px] rounded-lg transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mb-[1px]"
                         wire:click="dispatchOpenCreateModal"

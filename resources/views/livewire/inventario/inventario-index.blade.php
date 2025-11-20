@@ -14,12 +14,13 @@
                 <div class="w-full sm:min-w-[200px]">
                     <x-ts-select.styled :options="[
                         ['label' => 'Todas', 'value' => null],
-                        ['label' => 'Ativo', 'value' => 1],
-                        ['label' => 'Inativo', 'value' => 2],
-                        ['label' => 'Manutenção', 'value' => 3],]"
+                        ['label' => 'Ativo', 'value' => 'Ativo'],
+                        ['label' => 'Inativo', 'value' => 'Inativo'],
+                        ['label' => 'Manutenção', 'value' => 'Manutenção'],]"
                         label="Status"
                         wire:model.live="statusFilter"
                         searchable
+                        placeholder='Filtre por status'
                     />
                 </div>
 

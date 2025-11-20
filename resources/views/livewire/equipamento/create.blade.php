@@ -1,16 +1,27 @@
 <x-ts-modal title="Cadastrar Equipamento" center wire >
 
-    <div class="mt-3 px-1 pb-1">
+    <div >
 
-        <div class="mt-4">
+        <div class="mt-4 flex flex-row gap-5">
+            <div class="mt-4 w-1/2">
                 <x-ts-input 
-                    label="Código Patrimonial ou Nome *"
+                label="Nome"
+                class="block mt-1 w-full"
+                wire:model.defer='equipamento.nome'
+
+            />
+            </div>
+        <div class="mt-4 w-1/2">
+                <x-ts-input 
+                    label="Código Patrimonial"
                     class="block mt-1 w-full"
                     wire:model.defer="equipamento.codigo_patrimonio"
                     placeholder="Digite o código patrimonial ou nome"
                     required
                 />
         </div>
+        </div>
+        
 
         <div class="flex flex-row gap-5 mt-4">
             <div class="w-1/3">

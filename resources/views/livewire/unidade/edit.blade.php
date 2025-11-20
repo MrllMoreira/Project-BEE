@@ -11,13 +11,11 @@
 
         <div class="mt-4 w-1/3">
            <x-ts-select.styled :options="[
-                ['label' => 'Fundamental I', 'value' => 1],
-                ['label' => 'Fundamental II', 'value' => 2],
-                ['label' => 'Fundamental I e II', 'value' => 3],]" 
-            label="Ensino *" class="block mt-1 w-full" required wire:model.defer="unidade.unidade_tipo_id"/>
-           
-
-        
+                        ['label' => 'Todas', 'value' => null],
+                        ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
+                        ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
+                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],]"
+            label="Ensino *" class="block mt-1 w-full" required wire:model.defer="unidade.ensino_tipo"/>
         </div>
     </div>
 
@@ -32,12 +30,8 @@
         </div>
 
         <div class="mt-4 w-2/3">
-            <x-ts-input 
-                label="Responsável" 
-                class="block mt-1 w-full"
-                wire:model.defer="unidade.responsavel"
-
-            />
+            <x-ts-select.styled :options="$responsaveis"
+            label="Responsável *" class="block mt-1 w-full" required wire:model.defer="unidade.responsavel"/>
         </div>
     </div>
 
@@ -71,31 +65,30 @@
 
     <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/5">
-                        <x-ts-input id="cep" class="block mt-1 w-full" type="text" label="CEP *" required placeholder="_____-___" wire:model.live.debounce.500ms="unidade.enderecos.cep" maxlength="9" />
+                        <x-ts-input id="cep" class="block mt-1 w-full" label="CEP *" required placeholder="_____-___" wire:model.live.debounce.500ms="unidade.endereco.cep" maxlength="9" />
                     </div>
                     <div class="mt-4 w-3/5">
-                        <x-ts-input id="cidade" class="block mt-1 w-full" type="text" label="Cidade *" required wire:model.defer="unidade.enderecos.cidade"/>
+                        <x-ts-input id="cidade" class="block mt-1 w-full" label="Cidade *" required wire:model.defer="unidade.endereco.cidade"/>
                     </div>
                  
                     <div class="mt-4 w-1/5">
                         
-                        <x-ts-select.styled class="block mt-1 w-full" id="uf" :options="$ufs"
-                       
-                        label="UF *" required wire:model.defer="unidade.enderecos.uf"/>
+                        <x-ts-select.styled class="block mt-1 w-full" :options="$ufs"
+                        label="UF *" required wire:model.defer="unidade.endereco.uf"/>
                     </div>
                  
                 </div>
-        
+               
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-3/5">
-                        <x-ts-input id="rua" class="block mt-1 w-full" type="text" label="Rua *" required wire:model.defer="unidade.enderecos.rua"/>
+                        <x-ts-input id="rua" class="block mt-1 w-full" label="Rua *" required wire:model.defer="unidade.endereco.rua"/>
                     </div>
                     <div class="mt-4 w-1/5">
-                        <x-ts-input id="numero" class="block mt-1 w-full" type="text" label="Número *" 
-                        wire:model.defer="unidade.enderecos.numero" required />
+                        <x-ts-input id="numero" class="block mt-1 w-full" label="Número *" 
+                        wire:model.defer="unidade.endereco.numero" required />
                     </div>
                     <div class="mt-4 ">
-                        <x-ts-input id="bairro" class="block mt-1 w-full" type="text" label="Bairro *" required wire:model.defer="unidade.enderecos.bairro"/>
+                        <x-ts-input id="bairro" class="block mt-1 w-full" label="Bairro *" required wire:model.defer="unidade.endereco.bairro"/>
                     </div>
                 </div>
     <div class="flex items-center justify-end">

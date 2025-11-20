@@ -2,16 +2,16 @@
 title="Informações do Equipamento - {{ $equipamento['codigo_patrimonio'] }}" center wire>
     
     <div class="flex flex-row gap-5">
-        <div class=" w-1/3">
+        <div class=" w-1/2">
             <x-ts-input 
-                label="ID"
+                label="Nome"
                 class="block mt-1 w-full"
-                value="{{ $equipamento['id'] }}"
+                value="{{ $equipamento['nome'] }}"
                 disabled
             />
         </div>
 
-        <div class="w-2/3">
+        <div class="w-1/2">
             <x-ts-input 
                 label="Código Patrimonial"
                 class="block mt-1 w-full"

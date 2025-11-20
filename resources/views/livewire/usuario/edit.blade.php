@@ -16,11 +16,11 @@
             
             <div class="mt-4">
                 <x-ts-select.styled class="block mt-1 w-full"  :options="[
-                    ['label' => 'Funcionário', 'value' => 1],
-                    ['label' => 'Diretor', 'value' => 2],
+                    ['label' => 'Funcionário', 'value' => 2],
+                    ['label' => 'Diretor', 'value' => 4],
                     ['label' => 'Secretaria', 'value' => 3],
-                    ['label' => 'Admin', 'value' => 4],]" 
-                label="Função *" wire:model.defer="user.roles_id"  />    
+                    ['label' => 'Admin', 'value' => 1],]" 
+                label="Função *" wire:model.defer="user.role_id"  />    
             </div>
             <div class="mt-4">
                 <x-ts-select.styled class="block mt-1 w-full"  :options="$unidades" searchable
