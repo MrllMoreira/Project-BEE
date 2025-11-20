@@ -12,8 +12,8 @@ class UsuarioIndex extends Component
 {
     use WithPagination;
     public $quantity = 5; 
-    public ?string $search = ""; 
-    public $escolaFilter = null;
+    public $search = ""; 
+    public $escolaFilter;
     public $escolas;
 
     public function dispatchOpenCreateModal(){
@@ -23,26 +23,20 @@ class UsuarioIndex extends Component
         $this->dispatch('dispatchOpenModalShowUser', $id);
     }
     public function dispatchOpenEditModal($id){
-        
         $this->dispatch('dispatchOpenModalEditUser', $id);
     }
     public function dispatchOpenDeleteModal($id){
-        
         $this->dispatch('dispatchOpenModalDeleteUser', $id);
     }
 
- 
     public function mount(){
-        $this->escolas  = Unidade::query()
-                ->select('unidades.nome as label', 'unidades.id as value')
+        $this->escolas  = Unidade::select('unidades.nome as label', 'unidades.id as value')
                 ->get()
                 ->toArray();
     }
     public function with(): array
     
    {
-        
-
         return [
             'headers' => [
                 ['index' => 'matricula', 'label' => 'Matricula'],
@@ -52,24 +46,33 @@ class UsuarioIndex extends Component
                 ['index' => 'actions', 'label' => 'Ações']
             ],
             'rows' => User::query()
-                ->join('unidades', 'users.unidade_id', '=', 'unidades.id')
-                ->select('users.*', 'unidades.nome as unidades_nome')
+                ->with(['unidade:id,nome']) 
                 ->when($this->search, function (Builder $query) {
-                     $search = strtolower($this->search);
-                    return $query->whereRaw('LOWER(users.nome) LIKE ?', ["%{$search}%"]);
+                    $search = strtolower($this->search);
+                    return $query->where(function (Builder $query) use ($search) {
+                        $query->whereRaw('LOWER(users.nome) LIKE ?', ["%{$search}%"])
+                              ->orWhereRaw('LOWER(users.matricula) LIKE ?', ["%{$search}%"]);
+                    });
                 })
-                ->orderBy('users.nome', 'asc')
                 ->when($this->escolaFilter, function (Builder $query) {
-                    return $query->where('unidades.id', $this->escolaFilter);
+                    return $query->where('users.unidade_id', $this->escolaFilter);
                 })
+                ->orderBy('users.nome')
                 ->paginate($this->quantity)
                 ->withQueryString(),
             
         ];
     }
     
+    
     public function render()
     {
         return view('livewire.usuario.usuario-index', $this->with());
     }
+
+    public function updatedSearch(){ $this->resetPage();}
+
+    public function updatedEscolaFilter(){ $this->resetPage();}
+
+    public function updatedQuantity(){ $this->resetPage();}
 }

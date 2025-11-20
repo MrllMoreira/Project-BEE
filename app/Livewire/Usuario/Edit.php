@@ -18,7 +18,7 @@ class Edit extends Component
         'cpf' => '',
         'matricula' => '',
         'unidade_id' => null,
-        'roles_id' => null,
+        'role_id' => null,
         'profile_photo_url' => '',
     ];
     public $unidades = [
@@ -28,14 +28,10 @@ class Edit extends Component
     #[On('dispatchOpenModalEditUser')]
     public function OpenModal($id){
         
-        $this->user = User::select(
-        'id','nome','email','cpf','matricula','unidade_id','roles_id')
+        $this->user = User::select('id', 'nome', 'email', 'cpf', 'matricula', 'unidade_id', 'role_id')
         ->findOrFail($id)
         ->toArray();
-
-        $this->modal = true;
-        
-        
+        $this->modal = true;   
     }
     public function mount() {
         $this->unidades = Unidade::select('nome as label', 'id as value')->get()->toArray();

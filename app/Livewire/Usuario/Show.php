@@ -18,25 +18,21 @@ class Show extends Component
         'cpf' => '',
         'matricula' => '',
         'unidade_id' => null,
-        'roles_id' => null,
-        'profile_photo_url' => '',
+        'role_id' => null,
         'unidade_nome' => '',
         'role_nome' => '',
     ];
+
     #[On('dispatchOpenModalShowUser')]
     public function OpenModal($id){
-        $this->user = User::select(
-        'id','nome','email','cpf','matricula','unidade_id','roles_id')
+        $this->user = User::with(['unidade:id,nome', 'role:id,nome'])
+        ->select('id', 'nome', 'email', 'cpf', 'matricula', 'unidade_id', 'role_id')
         ->where('id', $id)
         ->first()
         ->toArray();
 
-        $this->user['unidade_nome'] =  Unidade::select('nome as label', 'id as value')
-            ->where('id', '=', $this->user['unidade_id'])
-            ->first()['label'];
-        $this->user['role_nome'] = strtoupper(Role::select('nome')
-            ->where('id', '=', $this->user['roles_id'])->first()['nome']);
-
+        $this->user['unidade_nome'] = $this->user['unidade']['nome'] ?? '-';
+        $this->user['role_nome'] = strtoupper($this->user['role']['nome'] ?? '-');
         $this->modal = true;
    
     }
