@@ -78,6 +78,9 @@ class EquipamentoIndex extends Component
                         ->orWhere('equipamentos_status.nome', 'like', $search);
                     });
                 })
+                ->when($this->statusFilter, function (Builder $query) {
+                    return $query->where('equipamentos_status.id', $this->statusFilter);
+                })
                 ->orderBy('equipamentos.id', 'asc')
                 ->select('codigo_patrimonio', 'equipamentos.id', 'marcas_equipamentos.nome as marca', 'equipamentos_status.nome as status', 'categoria_equipamentos.nome as categoria', 'equipamentos.updated_at as atualizadoEm' )
                 ->paginate($this->quantity)
