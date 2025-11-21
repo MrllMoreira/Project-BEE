@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('ensino_tipo');
             
             $table->foreignId('endereco_id')->constrained('enderecos');
-            $table->foreignId('created_by')->constrained('users')->nullable();
-            $table->foreignId('updated_by')->constrained('users');
-            $table->string('responsavel')->constrained('users')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('responsavel')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             
 

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string("descricao")->nullable();
             $table->string("status");
 
-            $table->foreignId("unidade_id")->constrained('unidades');
-            $table->foreignId("created_by")->constrained('users');
-            $table->foreignId("updated_by")->constrained('users');
+            $table->foreignId("unidade_id")->constrained('unidades')->cascadeOnDelete();
+            $table->foreignId("created_by")->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId("updated_by")->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

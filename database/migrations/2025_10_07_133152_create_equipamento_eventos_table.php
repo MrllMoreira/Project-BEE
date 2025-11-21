@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('equipamento_eventos', function (Blueprint $table) {
             $table->id()->autoIncrement();
             
-            $table->foreignId('evento_id')->constrained('eventos');
-            $table->foreignId('equipamento_id')->constrained('equipamentos');
+            $table->foreignId('evento_id')->nullable()->constrained('eventos')->nullOnDelete();
+            $table->foreignId('equipamento_id')->constrained('equipamentos')->cascadeOnDelete();
             $table->timestamps();
 
         });

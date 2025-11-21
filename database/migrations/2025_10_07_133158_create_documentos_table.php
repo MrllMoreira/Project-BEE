@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('status');
             $table->string('documento_path');
 
-            $table->foreignId('documento_tipo_id')->constrained('documento_tipo');
-            $table->foreignId('evento_id')->constrained('eventos');
+            $table->foreignId('documento_tipo_id')->nullable()->constrained('documento_tipo')->nullOnDelete();
+            $table->foreignId('evento_id')->constrained('eventos')->cascadeOnDelete();
 
             
             $table->timestamps();

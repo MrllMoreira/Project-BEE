@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('unidades', function (Blueprint $table) {
-            $table->unsignedBigInteger('created_by')->nullable()->change();
-            $table->unsignedBigInteger('updated_by')->nullable()->change();
+            $table->unsignedBigInteger('created_by')->nullable()->change()->nullOnDelete();
+            $table->unsignedBigInteger('updated_by')->nullable()->change()->nullOnDelete();
         });
     }
 

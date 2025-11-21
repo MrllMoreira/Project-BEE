@@ -17,8 +17,8 @@ return new class extends Migration
             $table->json('dados');
             $table->timestamps();
 
-            $table->foreignId('evento_tipo_id')->constrained('evento_tipos');
-            $table->foreignId('criado_por')->constrained('users');
+            $table->foreignId('evento_tipo_id')->nullable()->constrained('evento_tipos')->nullOnDelete();
+            $table->foreignId('criado_por')->nullable()->constrained('users')->nullOnDelete();;
 
         });
     }

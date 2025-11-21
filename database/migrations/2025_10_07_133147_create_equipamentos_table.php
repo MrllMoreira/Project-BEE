@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('categoria');
             $table->string('status');
             
-            $table->foreignId('inventario_id')->constrained('inventario');
+            $table->foreignId('inventario_id')->constrained('inventario')->cascadeOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();

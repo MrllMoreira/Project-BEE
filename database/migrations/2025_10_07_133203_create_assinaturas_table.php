@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamp("assinado_em")->nullable(); 
             $table->boolean("assinado")->default(false); 
 
-            $table->foreignId("assinado_por")->constrained('users')->onDelete('cascade');
-            $table->foreignId("documento_id")->constrained('documentos')->onDelete('cascade');
+            $table->foreignId("assinado_por")->constrained('users')->cascadeOnDelete();
+            $table->foreignId("documento_id")->constrained('documentos')->cascadeOnDelete();
 
             $table->timestamps();
         });
