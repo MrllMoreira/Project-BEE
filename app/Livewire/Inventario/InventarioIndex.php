@@ -19,6 +19,8 @@ class InventarioIndex extends Component
     public $idUnidade;
     public $nome = " ";
 
+    #[On('dispatchEditInventario')]
+    #[On('dispatchCreatedInventario')]
     #[On('dispatchDeletedInventario')]
     public function resetTable(){
         $this->resetPage();

@@ -16,14 +16,28 @@ class Edit extends Component
     ];
     #[On('dispatchOpenModalEditInventario')]
     public function openModal($id) {
-        $this->inventario = Inventario::select("nome", "status", "descricao")
+        $this->resetValidation();
+        $this->inventario = Inventario::select("nome", "status", "descricao", 'id')
         ->where("id", $id)
         ->first()->toArray();
 
         $this->modal = true;
     }
     public function editInventario() {
-        dump($this->inventario);
+
+        $data = $this->validate([
+            'inventario.nome' => 'required|string|min:3|unique:inventario,nome,'. $this->inventario['id'],
+            'inventario.status' => 'required|string',
+            'inventario.descricao' => 'nullable|string|max:200',
+        ]);
+
+        Inventario::find($this->inventario['id'])->update([
+            ...$data['inventario'],
+        ]);
+
+        $this->modal = false;
+        $this->reset('inventario');
+        $this->dispatch('dispatchEditInventario');
     }
     public function render()
     {
