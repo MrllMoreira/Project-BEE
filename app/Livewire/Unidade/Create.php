@@ -3,6 +3,9 @@
 namespace App\Livewire\Unidade;
 
 use App\Enums\UFEnum;
+use App\Models\Endereco;
+use App\Models\Unidade;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -11,34 +14,36 @@ class Create extends Component
 {
     public $modal = false;
     public $ufs;
-    public $endereco;
+    public $step;
+    public $responsaveis = [ ];
+    public $ensinos = [ ];
     public $unidade = [
     'id' => null,
-    'nome' => '',
-    'responsavel' => '',
-    'telefone' => '',
-    'email' => '',
-    'celular' => '',
-    'codigo_unidade' => '',
-    'ensino_tipo' => null,
+    'nome' => 'Yasutada nasu',
+    'responsavel' => 'Fundamental I',
+    'telefone' => '123456789',
+    'email' => 'edudar@gmail.com',
+    'celular' => '12992363685',
+    'codigo_unidade' => '123468',
+    'ensino_tipo' => '',
     'endereco' => [
-        'uf' => '',
-        'cidade' => '',
-        'bairro' => '',
-        'rua' => '',
-        'numero' => '',
-        'cep' => '',
+        'uf' => 'SP',
+        'cidade' => 'Caraguatatuba',
+        'bairro' => 'Inia',
+        'rua' => 'Leonardo Sailva',
+        'numero' => '10',
+        'cep' => '12345568',
     ],
 ];
-    public $step;
+    
     #[On('dispatchOpenModalCreateUnidade')]
     public function OpenModal(){
+        $this->resetValidation();
         $this->step=1;
         $this->modal = true;
     }
 
-    public function updatedUnidadeEnderecoCep($value)
-    {
+    public function updatedUnidadeEnderecoCep($value){
         
         $cepValue = preg_replace('/[^0-9]/', '', $value);
         
@@ -59,12 +64,45 @@ class Create extends Component
     public function mount()
     {
         $this->ufs = UFEnum::selectOptions();
+        $this->ensinos = Unidade::pluck('ensino_tipo')
+        ->unique()->values()->toArray();
+        $this->responsaveis = User::with('role:id,nome')
+        ->whereHas('role', function($query) {
+            $query->where('nome', 'diretor');
+        })
+        ->select('id as value', 'nome as label') 
+        ->get()
+        ->toArray();
         return $this->ufs;
     }
 
     public function createUnidade(){
-        dump($this->unidade);
-    
+
+        $data = $this->validate([
+            'unidade.nome'           => 'required|string|min:3',
+            'unidade.responsavel'    => 'required|exists:users,id',
+            'unidade.telefone'       => 'nullable|string|unique:unidades,telefone',
+            'unidade.email'          => 'required|email|unique:unidades,email',
+            'unidade.celular'        => 'nullable|string|unique:unidades,celular',
+            'unidade.codigo_unidade' => 'required|string|unique:unidades,codigo_unidade',
+            'unidade.ensino_tipo'    => 'required|string',
+
+            'unidade.endereco.uf'      => 'required|string|size:2',
+            'unidade.endereco.cidade'  => 'required|string',
+            'unidade.endereco.bairro'  => 'required|string',
+            'unidade.endereco.rua'     => 'required|string',
+            'unidade.endereco.numero'  => 'required',
+            'unidade.endereco.cep'     => 'required|string|min:8|max:9',
+        ]);
+        $endereco = Endereco::create($data['unidade']['endereco']);
+        unset($data['unidade']['endereco']);
+        Unidade::create([
+            ...$data['unidade'],
+            'endereco_id' => $endereco['id'],
+        ]);
+        $this->modal = false;
+        $this->reset('unidade');
+        $this->dispatch('dispatchCreatedUnidade');
     }
 
     public function render()

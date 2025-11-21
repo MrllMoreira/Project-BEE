@@ -20,7 +20,7 @@ class Unidade extends Model
     'telefone',
     'celular',
     'email',
-    'unidade_tipo_id',
+    'ensino_tipo',
     'endereco_id',
     'created_by',
     'updated_by',

@@ -3,6 +3,7 @@
 namespace App\Livewire\Unidade;
 
 use App\Enums\UFEnum;
+use App\Models\Endereco;
 use Illuminate\Support\Facades\Http;
 use App\Models\Unidade;
 use App\Models\User;
@@ -13,9 +14,7 @@ class Edit extends Component
 {
     public $modal= false;
     public $ufs;
-    public $responsaveis = [
-
-    ];
+    public $responsaveis = [ ];
 
     public $unidade = [
     'id' => null,
@@ -38,10 +37,10 @@ class Edit extends Component
 ];
     #[On('dispatchOpenModalEditUnidade')]
     public function openModal($id) {
-        $this->reset('unidade');
+        $this->resetValidation();
+
         $this->unidade = Unidade::with('endereco')
-        ->findOrFail($id)
-        ->toArray();
+        ->findOrFail($id)->toArray();
         
         $this->modal = true;
        
@@ -82,7 +81,38 @@ class Edit extends Component
         }
     }
     public function editUnidade()  {
-        dump($this->unidade);
+
+        $data = $this->validate([
+            'unidade.nome' => 'required|string|min:3',
+            'unidade.responsavel' => 'required|exists:users,id',
+            'unidade.ensino_tipo' => 'required|string',
+
+            'unidade.telefone' => 'nullable|string|unique:unidades,telefone,'.
+                $this->unidade['id'],
+            'unidade.email' => 'required|email|unique:unidades,email,' . 
+                $this->unidade['id'],
+            'unidade.celular' => 'nullable|string|unique:unidades,celular,' . 
+                $this->unidade['id'],
+            'unidade.codigo_unidade' => 'required|string|unique:unidades,codigo_unidade,' .
+                $this->unidade['id'],
+
+            'unidade.endereco.uf'=> 'required|string|size:2',
+            'unidade.endereco.cidade' => 'required|string',
+            'unidade.endereco.bairro' => 'required|string',
+            'unidade.endereco.rua' => 'required|string',
+            'unidade.endereco.numero' => 'required',
+            'unidade.endereco.cep' => 'required|string|min:8|max:9',
+        ]);
+
+        Endereco::find($this->unidade['endereco']['id'])
+        ->update($data['unidade']['endereco']);
+
+        unset($data['unidade']['endereco']);
+        Unidade::find($this->unidade['id'])->update($data['unidade']);
+
+        $this->modal = false;
+        $this->reset('unidade');
+        $this->dispatch('dispatchEditUnidade');
     }
     
     public function render()

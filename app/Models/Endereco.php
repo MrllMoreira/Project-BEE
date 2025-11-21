@@ -15,17 +15,15 @@ class Endereco extends Model
 
     protected $fillable = [
         'uf',
-        'regiao',
         'cidade',
         'bairro',
         'rua',
         'numero',
-        'complemento',
         'cep',
     ];
     
-    public function unidades()
+    public function unidade()
     {
-        return $this->hasMany(Unidade::class, 'endereco_id', 'id');
+        return $this->hasOne(Unidade::class);
     }
 }

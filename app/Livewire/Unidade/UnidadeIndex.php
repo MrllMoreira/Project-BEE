@@ -15,6 +15,8 @@ class UnidadeIndex extends Component
     public $search = null; 
     public $ensinoFilter = null;
 
+    #[On('dispatchEditUnidade')]
+    #[On('dispatchCreatedUnidade')]
     #[On('dispatchDeletedUnidade')]
     public function resetTable(){
         $this->reset();

@@ -53,21 +53,21 @@
 
                 <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/2">
-                        <x-ts-input wire:model.defer="unidade.codigo" class="block mt-1 w-full"
+                        <x-ts-input wire:model.defer="unidade.codigo_unidade" class="block mt-1 w-full"
                          label="Codigo da unidade *" />
                     </div>
 
                     <div class="mt-4 w-1/2">
                         <x-ts-select.styled
                             :options="[
-                                ['label' => 'Fundamental I', 'value' => 1],
-                                ['label' => 'Fundamental II', 'value' => 2],
-                                ['label' => 'Fundamental I e II', 'value' => 3]
+                                ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
+                                ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
+                                ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II']
                             ]"
                             label="Ensino *"
                             class="block mt-1 w-full"
                         
-                            wire:model.defer='unidade.ensino'
+                            wire:model.defer='unidade.ensino_tipo'
                         />
                     </div>
                 </div>
@@ -78,8 +78,13 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-ts-input wire:model.defer="unidade.responsavel"
-                        class="block mt-1 w-full" label="Responsavel *" />
+                    <x-ts-select.styled
+                            :options="$responsaveis"
+                            label="Responsavel *"
+                            class="block mt-1 w-full"
+                        
+                            wire:model.defer="unidade.responsavel"
+                        />
                 </div>
 
                 <div class="flex justify-end mt-4">
@@ -138,7 +143,7 @@
                     <div class="mt-4 w-1/5">
                         <x-ts-select.styled class="block mt-1 w-full"
                             wire:model.defer="uf" :options="$ufs"
-                            select="label:name|value:name"
+                            
                             label="UF *" wire:model.defer="unidade.endereco.uf"/>
                     </div>
                 </div>
