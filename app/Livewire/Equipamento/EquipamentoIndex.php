@@ -7,6 +7,7 @@ use App\Models\Inventario;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class EquipamentoIndex extends Component
@@ -16,9 +17,14 @@ class EquipamentoIndex extends Component
     public $search = null; 
     public $statusFilter = null;
     public $nome;
-
     public $id;
     public $idUnidade;
+
+
+    #[On('dispatchDeletedEquipamento')]
+    public function resetTable(){
+        $this->resetPage();
+    }
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateEquipamento');
@@ -49,8 +55,9 @@ class EquipamentoIndex extends Component
 
  
  
-    public function with(): array
+    public function with()
    {
+
     
         return [
             'headers' => [

@@ -7,6 +7,7 @@ use App\Models\Unidade;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class InventarioIndex extends Component
@@ -16,7 +17,12 @@ class InventarioIndex extends Component
     public $search = null; 
     public $statusFilter = null;
     public $idUnidade;
-    public $nome;
+    public $nome = " ";
+
+    #[On('dispatchDeletedInventario')]
+    public function resetTable(){
+        $this->resetPage();
+    }
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateInventario');
@@ -34,16 +40,17 @@ class InventarioIndex extends Component
     
 
     public function mount($idUnidade)
-    {
-        
+    {   
         $this->idUnidade = $idUnidade;
-        $this->nome = Unidade::findOrfail($idUnidade)['nome'];
+        $unidade = Unidade::find($this->idUnidade);
+        $this->nome = $unidade?->nome ?? '';
         
     }
+
     
     public function with(): array
    {
-    
+        
         return [
             'headers' => [
                 ['index' => 'nome', 'label' => 'Nome'],

@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class UsuarioIndex extends Component
 {
@@ -14,7 +15,15 @@ class UsuarioIndex extends Component
     public $quantity = 5; 
     public $search = ""; 
     public $escolaFilter;
-    public $escolas;
+    public $escolas = [
+        ['label' => '', 'value' => '']
+    ];
+
+    #[On('dispatchDeletedUser')]
+    public function resetTable(){
+        $this->reset();
+        $this->resetPage();
+    }
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUser');

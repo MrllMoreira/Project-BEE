@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Unidade;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class UnidadeIndex extends Component
 {
@@ -13,6 +14,12 @@ class UnidadeIndex extends Component
     public $quantity = 5; 
     public $search = null; 
     public $ensinoFilter = null;
+
+    #[On('dispatchDeletedUnidade')]
+    public function resetTable(){
+        $this->reset();
+        $this->resetPage();
+    }
 
     public function dispatchOpenCreateModal(){
         $this->dispatch('dispatchOpenModalCreateUnidade');
