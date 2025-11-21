@@ -12,6 +12,7 @@ use App\Livewire\Usuario\Show as UsuarioShow;
 
 
 use App\Livewire\Usuario\UsuarioIndex;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,6 +47,17 @@ Route::middleware(['auth', 'admin.acesso'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Index::class)->name('dashboard');
-    Route::get('/documentos', DocumentosIndex::class)->name('documentos');  
+    Route::get('/documentos', DocumentosIndex::class)->name('documentos');
+    Route::get('/documento/{filename}', function ($filename) {
+    $path = storage_path('app/documentos/' . $filename);
+    
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+    ]);
+})->name('documento.view');
 });
 
