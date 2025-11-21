@@ -3,6 +3,7 @@
 namespace App\Livewire\Usuario;
 
 use App\Models\Unidade;
+use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -23,13 +24,30 @@ class Create extends Component
     ];
     #[On('dispatchOpenModalCreateUser')]
     public function OpenModal(){
+        $this->resetValidation();
         $this->modal = true;
       
     }
     public function createUser() {
-        dump($this->newUser);
-        $this->reset();
+
+        $data = $this->validate([
+            'newUser.cpf' => 'required|digits:11',
+            'newUser.matricula' => 'required|string',
+            'newUser.role_id' => 'required|exists:roles,id',
+            'newUser.nome' => 'required|string|min:3',
+            'newUser.unidade_id' => 'required|exists:unidades,id',
+            'newUser.email' => 'required|email|unique:users,email',
+            'newUser.password'  => 'required|min:8',
+            'newUser.confirmPassword' => 'required|same:newUser.password',
+        ]);
+
+        unset($data['newUser']['confirmPassword']);
+        User::create([
+            ...$data['newUser'],                   
+        ]);
         $this->modal = false;
+        $this->reset('newUser');
+        $this->dispatch('dispatchCreateUser');
     }
     public function mount(){
         $this->unidades = Unidade::select('nome as label', 'id as value')->get()->toArray();

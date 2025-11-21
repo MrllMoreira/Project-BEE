@@ -5,6 +5,7 @@ namespace App\Livewire\Usuario;
 use App\Models\Role;
 use App\Models\Unidade;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,14 +13,13 @@ class Edit extends Component
 {
     public $modal = false;
     public $user = [
-        'id' => null,
+        'id' => '',
         'nome' => '',
         'email' => '',
         'cpf' => '',
         'matricula' => '',
-        'unidade_id' => null,
-        'role_id' => null,
-        'profile_photo_url' => '',
+        'unidade_id' => '',
+        'role_id' => '',
     ];
     public $unidades = [
         ['label' => ' ',  'value' => ' ']
@@ -27,7 +27,7 @@ class Edit extends Component
     
     #[On('dispatchOpenModalEditUser')]
     public function OpenModal($id){
-        
+        $this->resetValidation();
         $this->user = User::select('id', 'nome', 'email', 'cpf', 'matricula', 'unidade_id', 'role_id')
         ->findOrFail($id)
         ->toArray();
@@ -39,7 +39,25 @@ class Edit extends Component
     }
 
     public function editUsuario() {
-        dump($this->user);
+        $data = $this->validate([
+            'user.cpf' => 'required|digits:11',
+            'user.matricula' => 'required|string',
+            'user.role_id' => 'required|exists:roles,id',
+            'user.nome' => 'required|string|min:3',
+            'user.unidade_id' => 'required|exists:unidades,id',
+            'user.email' => [
+                'required','email',
+                Rule::unique('users', 'email')->ignore($this->user['id']),
+            ],
+        ]);
+
+        User::find($this->user['id'])->update([
+            ...$data['user'],
+        ]);
+        
+        $this->modal = false;
+        $this->reset('user');
+        $this->dispatch('dispatchEditUser');
     }
    
     public function render()

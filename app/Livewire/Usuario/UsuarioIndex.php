@@ -19,6 +19,8 @@ class UsuarioIndex extends Component
         ['label' => '', 'value' => '']
     ];
 
+    #[On('dispatchEditUser')]
+    #[On('dispatchCreateUser')]
     #[On('dispatchDeletedUser')]
     public function resetTable(){
         $this->reset();
