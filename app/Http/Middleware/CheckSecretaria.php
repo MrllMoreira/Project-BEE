@@ -17,9 +17,12 @@ class CheckSecretaria
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
+        $unidadeId = request()->route('idUnidade');
         
         // Admin/Secreatria pode acessar tudo
         if ($user->role_id == 3 || $user->role_id == 1) {
+            return $next($request);
+        }else if ($user->unidade_id == $unidadeId){
             return $next($request);
         }else{
             abort(403, 'Acesso não autorizado.');

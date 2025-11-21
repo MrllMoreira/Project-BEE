@@ -58,7 +58,7 @@
                     Inventário
                 </a>
 
-                @if (Auth::user()->roles_id == 3 || Auth::user()->roles_id == 1)
+                @if (Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
                     <a href="{{ route('unidade') }}"
                        class="{{ $aClass }} {{ $hoverClass }}
                               {{ $isActiveUnidade ? $activeClass : 'text-gray-700' }}">
@@ -67,7 +67,7 @@
                     </a>
                 @endif
 
-                @if (Auth::user()->roles_id == 1)
+                @if (Auth::user()->role_id == 1)
                     <a href="{{ route('usuario') }}"
                        class="{{ $aClass }} {{ $hoverClass }}
                               {{ $isActiveUsuario ? $activeClass : 'text-gray-700' }}">
