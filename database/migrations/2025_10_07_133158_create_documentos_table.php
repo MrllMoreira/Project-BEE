@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
+            $table->string('nome');
+            $table->string('status');
             $table->string('documento_path');
 
             $table->foreignId('documento_tipo_id')->constrained('documento_tipo');

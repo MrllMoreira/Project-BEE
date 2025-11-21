@@ -21,12 +21,10 @@ class EnderecoFactory extends Factory
     {
         return [
             'uf' => "SP",
-            'regiao' => "Sudeste",
             'cidade' => "São Paulo",
             'bairro' => "Bairro",
             'rua' => "Rua",
             'numero' => 1,
-            'complemento' => "Complemento",
             'cep' => "12345-678",
         ];
     }

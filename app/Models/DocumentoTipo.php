@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventario extends Model
+class DocumentoTipo extends Model
 {
     use HasFactory;
-    protected $table = 'inventario';
+
+    protected $table = 'documento_tipo';
 
     protected $fillable = [
         'nome',
-        'unidade_id',
         'descricao',
-        'status',
-        'created_by',
-        'updated_by',
     ];
-
 }

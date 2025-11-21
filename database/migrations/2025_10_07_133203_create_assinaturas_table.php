@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('assinaturas', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->timestamp("assinado_em"); 
+            $table->timestamp("assinado_em")->nullable(); 
             $table->boolean("assinado")->default(false); 
 
             $table->foreignId("assinado_por")->constrained('users')->onDelete('cascade');

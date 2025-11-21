@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'cpf' => fake()->numerify('###########'),
             'matricula' => fake()->unique()->numerify('########'),
-            'roles_id' => rand(1, 4),
+            'role_id' => rand(1, 4),
             'password' => static::$password ??= Hash::make('password'),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
