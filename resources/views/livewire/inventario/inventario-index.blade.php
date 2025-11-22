@@ -24,7 +24,8 @@
                     />
                 </div>
 
-                <button
+                @if (Auth::user()->unidade_id == $idUnidade)
+                    <button
                     class="flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white h-[42px] w-[42px] rounded-lg transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mb-[1px]"
                     wire:click="dispatchOpenCreateModal"
                     title="Adicionar Novo Item"
@@ -35,6 +36,7 @@
                         <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
                 </button>
+                @endif
             </div>
         </div>
 
