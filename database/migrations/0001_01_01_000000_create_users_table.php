@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 50);
             $table->string('email', 50)->unique();
-            $table->string('cpf', 14);
+            $table->string('cpf', 14)->unique();
             $table->string('matricula',20)->unique(); 
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
