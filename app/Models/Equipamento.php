@@ -11,10 +11,11 @@ class Equipamento extends Model
     protected $table = 'equipamentos';
 
     protected $fillable = [
+        'nome',
         'codigo_patrimonio',
-        'categoria_id',
-        'marca_id',
-        'status_id',
+        'categoria',
+        'marca',
+        'status',
         'inventario_id',
         'descricao',
     ];

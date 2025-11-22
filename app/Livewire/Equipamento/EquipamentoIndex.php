@@ -20,7 +20,8 @@ class EquipamentoIndex extends Component
     public $id;
     public $idUnidade;
 
-
+    #[On('dispatchEditEquipamento')]
+    #[On('dispatchCreatedEquipamento')]
     #[On('dispatchDeletedEquipamento')]
     public function resetTable(){
         $this->resetPage();
