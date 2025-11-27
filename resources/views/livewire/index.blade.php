@@ -1,12 +1,12 @@
 <div class="p-8">
-    <div class="bg-white border border-gray-200 rounded-2xl">
-        
-        <h1 class="p-6 mb-8 text-3xl font-bold">{{$nome}}</h1>
+    <div class="bg-[--white] border border-[--border-gray-200] rounded-2xl">
+
+        <h1 class="p-6 mb-8 text-3xl font-bold text-[--text]">{{$nome}}</h1>
         <div class="flex items-center justify-center h-full">
             <div class="w-full p-4 px-8">
                <div class="flex items-center justify-center w-full gap-6">
                 <hr class="w-40 border-gray-400">
-                <h2 class="text-xl font-semibold ">Patrimonios</h2>
+                <h2 class="text-xl font-semibold text-[--text]">Patrimonios</h2>
                 <hr class="w-40 col-span-2 border-gray-400">
                </div>
 
@@ -14,8 +14,8 @@
 
                <div class="flex items-center justify-between w-full gap-12 mt-8">
                 <div class="flex flex-col items-center justify-center w-1/3 gap-3">
-                    <div class="flex flex-col items-center justify-center w-full h-32 bg-white shadow-md rounded-xl">
-                        <h3 class="text-[60px] font-bold text-gray-800">120</h3>
+                    <div class="flex flex-col items-center justify-center w-full h-32 bg-[--card] border border-[--border-gray-600] shadow-md rounded-xl">
+                        <h3 class="text-[60px] font-bold text-[--text]">120</h3>
                         <p class="text-xs font-semibold text-gray-500">Dentro da unidade</p>
                     </div>
                     <div class="w-[100px] h-8 bg-white flex shadow-md items-center justify-center gap-1 hover:font-semibold rounded-md hover:bg-gray-100 cursor-pointer focus:bg-gray-100 focus:font-semibold">
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="flex flex-col items-center justify-center w-1/3 gap-3">
-                    <div class="flex flex-col items-center justify-center w-full h-32 bg-white shadow-md rounded-xl">
-                        <h3 class="text-[60px] font-bold text-red-800">2</h3>
+                    <div class="flex flex-col items-center justify-center w-full h-32  bg-[--card] border border-[--border-gray-600] shadow-md rounded-xl">
+                        <h3 class="text-[60px] font-bold text-red-500">2</h3>
                         <p class="text-xs font-semibold text-red-500">Danificados</p>
                     </div>
                     <div class="w-[100px] h-8 bg-white flex shadow-md items-center justify-center gap-1 hover:font-semibold rounded-md hover:bg-gray-100 cursor-pointer focus:bg-gray-100 focus:font-semibold">
@@ -32,8 +32,8 @@
                     </div>
                 </div>
                 <div class="flex flex-col items-center justify-center w-1/3 gap-3">
-                    <div class="flex flex-col items-center justify-center w-full h-32 bg-white shadow-md rounded-xl">
-                        <h3 class="text-[60px] font-bold text-gray-600">30</h3>
+                    <div class="flex flex-col items-center justify-center w-full h-32  bg-[--card] border border-[--border-gray-600] shadow-md rounded-xl">
+                        <h3 class="text-[60px] font-bold text-[--text]">30</h3>
                         <p class="text-xs font-semibold text-gray-500">Sem uso</p>
                     </div>
                     <div class="w-[100px] h-8 bg-white flex shadow-md items-center justify-center gap-1 hover:font-semibold rounded-md hover:bg-gray-100 cursor-pointer focus:bg-gray-100 focus:font-semibold">
@@ -43,18 +43,18 @@
                </div>
 
                <div class="mt-8 ">
-                    <div class="w-full pt-2 pl-4 bg-white border-gray-100 shadow-md rounded-xl h-72">
-                        <canvas id="graficoPrincipal" style="width: 100%;" height="288"></canvas>
+                    <div class="w-full pt-2 pl-4 bg-[--canva] border border-[--border-gray-600] shadow-md rounded-xl h-72">
+                        <canvas id="graficoPrincipal" style="width: 100%; " height="288"></canvas>
 
                     </div>
                </div>
 
                <div class="flex gap-20 mt-8">
-                    <div class="w-3/5 pt-2 pl-4 bg-white border-gray-100 shadow-md rounded-xl h-60">
+                    <div class="w-3/5 pt-2 pl-4 bg-[--canva] border border-[--border-gray-600] shadow-md rounded-xl h-60">
                         <canvas id="graficoSecundario" style="width: 100%;" height="240"></canvas>
 
                     </div>
-                    <div class="w-2/5 bg-white border-gray-100 shadow-md rounded-xl h-60">
+                    <div class="w-2/5 bg-[--canva] border border-[--border-gray-600] shadow-md rounded-xl h-60">
 
                     </div>
                 </div>

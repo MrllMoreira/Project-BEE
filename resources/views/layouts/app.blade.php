@@ -26,7 +26,7 @@
         <div class="fixed top-4 right-6 ">
             @livewire('profile')
         </div>
-        <div class="flex flex-col h-screen p-6 pt-20 bg-gray-100">
+        <div class="flex flex-col h-screen p-6 pt-20 bg-gray-300">
             <x-banner />
             <div class="flex flex-1 overflow-hidden bg-white border border-gray-200 shadow-md rounded-2xl">
                 @livewire('navigation-menu')
@@ -42,7 +42,7 @@
                     @endif
 
                     <!-- Page Content -->
-                    <main class="flex-1 pt-4 overflow-auto bg-gray-100 scrollbar-custom">
+                    <main class="flex-1 pt-4 overflow-auto bg-[--gray-100] scrollbar-custom">
                         {{ $slot }}
                     </main>
                 </div>

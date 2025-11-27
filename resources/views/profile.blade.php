@@ -1,13 +1,13 @@
 <x-dropdown align="right" width="" class="w-64">
     <x-slot name="trigger">
-       
+
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <button class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
                 <img class="z-50 object-cover w-12 h-12 border-2 border-yellow-400 rounded-full size-8" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->nome }}" />
             </button>
         @else
             <span class="inline-flex rounded-md">
-                <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-950 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+                <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-gray-950 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
                     {{ Auth::user()->nome }}
                     <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -25,6 +25,10 @@
 
         <x-dropdown-link href="{{ route('profile.show') }}">
             {{ __('Profile') }}
+        </x-dropdown-link>
+
+        <x-dropdown-link>
+            <x-ts-toggle id="theme-toggle" label="Mudar tema" position="left" ></x-ts-toggle>
         </x-dropdown-link>
 
         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

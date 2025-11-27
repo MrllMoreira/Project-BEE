@@ -29,14 +29,32 @@
     }
   }
 
-/* 
-  .bg-white {
-    background-color: #1b263b !important;
+
+
+
+ :root[data-theme="light"]{
+    --white: white;
+    --text: #000;
+    --card: #fff;
+    --canva: #fff;
+    --border-gray-600: #e3e3e0;
+    --gray-100: #f3f3f3;
+    --border-gray-200: #ececec;
+    --nav-bg-hover: #273333;
+    --nav-text-hover: #FDC029;
+    --nav-text-gray-700: #374151;
+ }
+
+ :root[data-theme="dark"]{
+    --white: #0a1120;
+    --card: #14203d;
+    --canva: #14203d;
+    --text: #fff;
+    --border-gray-600: #7c7b7b;
+    --gray-100: #1e293b;
+    --border-gray-200: #505050;
+    --nav-bg-hover: #ffffff;
+    --nav-text-hover: #000000;
+    --nav-text-gray-700: #dddddd;
 }
 
- .text-gray-900 {
-    color: #fff !important;
-}
- .text-gray-100 {
-    color: #fff !important;
- } */
