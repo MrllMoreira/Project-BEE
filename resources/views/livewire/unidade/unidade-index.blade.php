@@ -1,12 +1,12 @@
 <div class="w-full px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-    <div class="overflow-hidden bg-white border border-gray-200 shadow-sm rounded-xl">
+    <div class="overflow-hidden shadow-sm rounded-xl theme-card">
 
-        <div class="flex flex-col items-start justify-between gap-4 p-6 border-b border-gray-100 sm:flex-row sm:items-center">
+        <div class="flex flex-col items-start justify-between gap-4 p-6 theme-card-header sm:flex-row sm:items-center">
 
             <div>
-                <h1 class="text-2xl font-bold text-gray-900">Unidades</h1>
-                <p class="mt-1 text-sm text-gray-500">Gerencie as unidades escolares e níveis de ensino</p>
+                <h1 class="text-2xl font-bold theme-title">Unidades</h1>
+                <p class="mt-1 text-sm theme-subtitle">Gerencie as unidades escolares e níveis de ensino</p>
             </div>
 
             <div class="flex flex-row items-end w-full gap-3 sm:w-auto">
@@ -16,9 +16,10 @@
                         ['label' => 'Todas', 'value' => null],
                         ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
                         ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
-                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],]"
-                        label="Ensino"
-                        wire:model.live="ensinoFilter"
+                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],
+                    ]"
+                    label="Ensino"
+                    wire:model.live="ensinoFilter"
                     />
                 </div>
 
@@ -35,10 +36,11 @@
                         </svg>
                     </button>
                 @endif
+
             </div>
         </div>
 
-        <div class="p-6 bg-gray-50/50">
+        <div class="p-6 theme-body">
             <x-table
                 :headers="$headers"
                 :rows="$rows"
@@ -47,6 +49,7 @@
                 link="unidade.show"
             />
         </div>
+
     </div>
 
     <livewire:unidade.create/>

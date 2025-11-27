@@ -58,3 +58,51 @@
     --nav-text-gray-700: #dddddd;
 }
 
+.table-wrapper {
+    --table-bg: var(--white);
+    --table-th-bg: var(--gray-100);
+    --table-text: var(--text);
+    --table-border: var(--border-gray-200);
+}
+
+.table-wrapper table {
+    background: var(--table-bg);
+    color: var(--table-text);
+}
+
+.table-wrapper thead {
+    background: var(--table-th-bg);
+}
+
+.table-wrapper th,
+.table-wrapper td {
+    border-color: var(--table-border) !important;
+}
+
+
+/* CARD BASEADO NO TEMA */
+.theme-card {
+    background: var(--card);
+    border: 1px solid var(--border-gray-200);
+    color: var(--text);
+}
+
+/* HEADER DO CARD */
+.theme-card-header {
+    border-bottom: 1px solid var(--border-gray-200);
+    background: var(--white);
+}
+
+/* TÍTULOS */
+.theme-title {
+    color: var(--text);
+}
+
+.theme-subtitle {
+    color: var(--nav-text-gray-700);
+}
+
+/* BODY CINZA (usado no fundo da tabela) */
+.theme-body {
+    background: var(--gray-100);
+}
