@@ -24,7 +24,7 @@
             </div>
             <div class="mt-4">
                 <x-ts-select.styled class="block mt-1 w-full"  :options="$unidades" searchable
-                label="Unidade *" wire:model.defer="user.unidade_id" /> 
+                label="Unidade " wire:model.defer="user.unidade_id" /> 
             </div>
                 
                 

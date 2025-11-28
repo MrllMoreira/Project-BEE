@@ -22,12 +22,7 @@
                 <div class="mt-4 w-1/3">
                     <x-ts-select.styled 
                         class="block mt-1 w-full"  
-                        :options="[
-                            ['label' => 'Funcionário', 'value' => 1],
-                            ['label' => 'Diretor', 'value' => 2],
-                            ['label' => 'Secretaria', 'value' => 3],
-                            ['label' => 'Admin', 'value' => 4]
-                        ]" 
+                        :options="$roles" 
                         label="Função *" 
                         wire:model.defer='newUser.role_id'
                     />
@@ -49,7 +44,7 @@
                         class="block mt-1 w-full" 
                         :options="$unidades" 
                         searchable
-                        label="Unidade *"  
+                        label="Unidade"  
                         wire:model.defer='newUser.unidade_id'
                     />   
                 </div>

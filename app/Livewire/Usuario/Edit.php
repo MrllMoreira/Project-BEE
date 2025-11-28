@@ -44,7 +44,7 @@ class Edit extends Component
             'user.matricula' => 'required|string',
             'user.role_id' => 'required|exists:roles,id',
             'user.nome' => 'required|string|min:3',
-            'user.unidade_id' => 'required|exists:unidades,id',
+            'user.unidade_id' => 'nullable',
             'user.email' => [
                 'required','email',
                 Rule::unique('users', 'email')->ignore($this->user['id']),

@@ -57,7 +57,7 @@ class UsuarioIndex extends Component
                 ['index' => 'actions', 'label' => 'Ações']
             ],
             'rows' => User::query()
-                ->with(['unidade:id,nome']) 
+                ->leftJoin('unidades', 'unidades.id', '=', 'users.unidade_id') 
                 ->when($this->search, function (Builder $query) {
                     $search = strtolower($this->search);
                     return $query->where(function (Builder $query) use ($search) {
@@ -68,6 +68,7 @@ class UsuarioIndex extends Component
                 ->when($this->escolaFilter, function (Builder $query) {
                     return $query->where('users.unidade_id', $this->escolaFilter);
                 })
+                ->select("users.*", 'unidades.nome as unidades_nome')
                 ->orderBy('users.nome')
                 ->paginate($this->quantity)
                 ->withQueryString(),
