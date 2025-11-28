@@ -3,6 +3,12 @@
 <div class="w-full px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="overflow-hidden bg-white border border-gray-200 shadow-sm rounded-xl">
         <div class="flex flex-col items-start justify-between gap-4 p-6 border-b border-gray-100 sm:flex-row sm:items-center">
+            <button wire:click='voltarInventarios'>
+                <svg class="w-5 h-5" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" />
+                </svg>
+            </button>
             <div>
                 <h1 class="text-2xl font-bold text-gray-900">{{$nome}}</h1>
                 <p class="mt-1 text-sm text-gray-500">Gerencie o inventario {{$nome}}</p>

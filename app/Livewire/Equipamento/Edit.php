@@ -49,7 +49,7 @@ class Edit extends Component
     public function editEquipamento() {
         
         $data = $this->validate([
-            'equipamento.codigo_patrimonio' => 'nullable|string|unique:equipamentos,codigo_patrimonio'. $this->equipamento['id'],
+            'equipamento.codigo_patrimonio' => 'nullable|string|unique:equipamentos,codigo_patrimonio,' . $this->equipamento['id'],
             'equipamento.nome' => 'required|string|min:2',
             'equipamento.marca' => 'required|string|min:2',
             'equipamento.categoria' => 'required|string|min:2',
