@@ -19,26 +19,27 @@ class Create extends Component
     public $ensinos = [ ];
     public $unidade = [
     'id' => null,
-    'nome' => 'Yasutada nasu',
-    'responsavel' => 'Fundamental I',
-    'telefone' => '123456789',
-    'email' => 'edudar@gmail.com',
-    'celular' => '12992363685',
-    'codigo_unidade' => '123468',
+    'nome' => '',
+    'responsavel' => '',
+    'telefone' => '',
+    'email' => '',
+    'celular' => '',
+    'codigo_unidade' => '',
     'ensino_tipo' => '',
     'endereco' => [
-        'uf' => 'SP',
-        'cidade' => 'Caraguatatuba',
-        'bairro' => 'Inia',
-        'rua' => 'Leonardo Sailva',
-        'numero' => '10',
-        'cep' => '12345568',
+        'uf' => '',
+        'cidade' => '',
+        'bairro' => '',
+        'rua' => '',
+        'numero' => '',
+        'cep' => '',
     ],
 ];
     
     #[On('dispatchOpenModalCreateUnidade')]
     public function OpenModal(){
         $this->resetValidation();
+        $this->reset('unidade');
         $this->step=1;
         $this->modal = true;
     }
@@ -56,7 +57,7 @@ class Create extends Component
                     'cidade' => $data['localidade'] ?? '',
                     'rua' => $data['logradouro'] ?? '',
                     'numero' => $this->unidade['endereco']['numero'] ?? '',
-                    'cep' => $data['cep'] ?? '',
+                    'cep' => $this->unidade['endereco']['cep'] ?? '',
                 ];
         }
     }
@@ -80,7 +81,7 @@ class Create extends Component
 
         $data = $this->validate([
             'unidade.nome'           => 'required|string|min:3',
-            'unidade.responsavel'    => 'required|exists:users,id',
+            'unidade.responsavel'    => 'exists:users,id',
             'unidade.telefone'       => 'nullable|string|unique:unidades,telefone',
             'unidade.email'          => 'required|email|unique:unidades,email',
             'unidade.celular'        => 'nullable|string|unique:unidades,celular',

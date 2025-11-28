@@ -17,6 +17,7 @@
                         ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
                         ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
                         ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],
+                        ['label' => 'Secretaria', 'value' => 'Secretaria'],
                     ]"
                     label="Ensino"
                     wire:model.live="ensinoFilter"

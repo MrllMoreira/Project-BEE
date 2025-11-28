@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Usuario;
 
+use App\Models\Role;
 use App\Models\Unidade;
 use App\Models\User;
 use Livewire\Attributes\On;
@@ -22,6 +23,9 @@ class Create extends Component
         'confirmPassword' => ''
 
     ];
+    public $roles = [
+        ['label' => '', 'value'=> '']
+    ];
     #[On('dispatchOpenModalCreateUser')]
     public function OpenModal(){
         $this->resetValidation();
@@ -35,7 +39,7 @@ class Create extends Component
             'newUser.matricula' => 'required|string',
             'newUser.role_id' => 'required|exists:roles,id',
             'newUser.nome' => 'required|string|min:3',
-            'newUser.unidade_id' => 'required|exists:unidades,id',
+            'newUser.unidade_id' => 'nullable',
             'newUser.email' => 'required|email|unique:users,email',
             'newUser.password'  => 'required|min:8',
             'newUser.confirmPassword' => 'required|same:newUser.password',
@@ -51,6 +55,7 @@ class Create extends Component
     }
     public function mount(){
         $this->unidades = Unidade::select('nome as label', 'id as value')->get()->toArray();
+        $this->roles = Role::select('nome as label', 'id as value')->get()->toArray();
         
         return $this->unidades;
     }

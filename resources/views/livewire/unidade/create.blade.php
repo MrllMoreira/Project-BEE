@@ -62,7 +62,8 @@
                             :options="[
                                 ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
                                 ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
-                                ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II']
+                                ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II',
+                                'label' => 'Secretaria', 'value' => 'Secretaria']
                             ]"
                             label="Ensino *"
                             class="block mt-1 w-full"
@@ -80,9 +81,8 @@
                 <div class="mt-4">
                     <x-ts-select.styled
                             :options="$responsaveis"
-                            label="Responsavel *"
+                            label="Responsavel"
                             class="block mt-1 w-full"
-                        
                             wire:model.defer="unidade.responsavel"
                         />
                 </div>

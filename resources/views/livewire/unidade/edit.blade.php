@@ -14,7 +14,8 @@
                         ['label' => 'Todas', 'value' => null],
                         ['label' => 'Fundamental I', 'value' => 'Fundamental I'],
                         ['label' => 'Fundamental II', 'value' => 'Fundamental II'],
-                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],]"
+                        ['label' => 'Fundamental I e II', 'value' => 'Fundamental I e II'],
+                        ['label' => 'Secretaria', 'value' => 'Secretaria']]"
             label="Ensino *" class="block mt-1 w-full" required wire:model.defer="unidade.ensino_tipo"/>
         </div>
     </div>
@@ -31,7 +32,7 @@
 
         <div class="mt-4 w-2/3">
             <x-ts-select.styled :options="$responsaveis"
-            label="Responsável *" class="block mt-1 w-full" required wire:model.defer="unidade.responsavel"/>
+            label="Responsável " class="block mt-1 w-full" wire:model.defer="unidade.responsavel"/>
         </div>
     </div>
 
@@ -65,7 +66,7 @@
 
     <div class="flex flex-row gap-5">
                     <div class="mt-4 w-1/5">
-                        <x-ts-input id="cep" class="block mt-1 w-full" label="CEP *" required placeholder="_____-___" wire:model.live.debounce.500ms="unidade.endereco.cep" maxlength="9" />
+                        <x-ts-input id="cep" class="block mt-1 w-full" label="CEP *" required placeholder="_____-___" wire:model.live="unidade.endereco.cep" maxlength="9" />
                     </div>
                     <div class="mt-4 w-3/5">
                         <x-ts-input id="cidade" class="block mt-1 w-full" label="Cidade *" required wire:model.defer="unidade.endereco.cidade"/>

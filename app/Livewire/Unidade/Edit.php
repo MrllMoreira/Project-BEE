@@ -60,11 +60,10 @@ class Edit extends Component
         return $this->ufs;
     }
 
-    public function updatedUnidadeEnderecosCep($value)
+    public function updatedUnidadeEnderecoCep($value)
     {
        
         $cepValue = preg_replace('/[^0-9]/', '', $value);
-
         if (strlen($cepValue) === 8) {
             $data= Http::get("https://viacep.com.br/ws/{$cepValue}/json/")->json();
             
@@ -73,6 +72,7 @@ class Edit extends Component
                     'bairro' => $data['bairro'] ?? '',
                     'cidade' => $data['localidade'] ?? '',
                     'uf' => $data['uf'] ?? '',
+                    'cep' => $this->endereco['cep'],
                 ];
             $this->unidade['enderecos'] = array_merge(
                 $this->unidade['enderecos'],
@@ -84,7 +84,7 @@ class Edit extends Component
 
         $data = $this->validate([
             'unidade.nome' => 'required|string|min:3',
-            'unidade.responsavel' => 'required|exists:users,id',
+            'unidade.responsavel' => 'nullable',
             'unidade.ensino_tipo' => 'required|string',
 
             'unidade.telefone' => 'nullable|string|unique:unidades,telefone,'.
