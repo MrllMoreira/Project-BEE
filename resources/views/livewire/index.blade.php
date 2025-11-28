@@ -66,12 +66,16 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             (() => {
-                const labelsPrincipal = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Agos', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const labelsPrincipal = [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Agos', 'Sep', 'Oct', 'Nov', 'Dec'
+                ];
+
                 const dataPrincipal = {
                     labels: labelsPrincipal,
                     datasets: [{
-                        label: 'My First Dataset',
-                        data: [65, 59, 80, 81, 56, 55, 40, 70, 32, 42, 30, 56, 70, 32],
+                        label: 'Patrimônios cadastrados por mês',
+                        data: [10, 15, 12, 8, 20, 18, 9, 22, 17, 14, 11, 19],
                         backgroundColor: [
                             'rgba(253, 192, 41, 1)',
                             'rgba(253, 237, 185, 1)',
@@ -114,54 +118,55 @@
 
                 new Chart(document.getElementById('graficoPrincipal'), configPrincipal);
             })();
+            </script>
+
+<script>
+    (() => {
+        const labelsSecundario = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+
+        const dataSecundario = {
+            labels: labelsSecundario,
+            datasets: [
+                {
+                    label: 'Entradas de Patrimônios',
+                    data: [12, 18, 22, 15, 30, 25, 20],
+                    fill: false,
+                    borderColor: 'rgba(253, 237, 20, 1)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Saídas (Baixas/Descarte)',
+                    data: [5, 8, 6, 4, 10, 7, 9],
+                    fill: false,
+                    borderColor: 'rgba(39, 51, 51, 1)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Transferências entre Setores',
+                    data: [7, 10, 12, 9, 14, 18, 13],
+                    fill: false,
+                    borderColor: 'rgb(253, 237, 150)',
+                    tension: 0.1
+                }
+            ]
+        };
+
+        const configSecundario = {
+            type: 'line',
+            data: dataSecundario,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        };
+
+        new Chart(document.getElementById('graficoSecundario'), configSecundario);
+    })();
     </script>
 
-    <script>
-        (() => {
-            const labelsSecundario = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-
-            const dataSecundario = {
-                labels: labelsSecundario,
-                datasets: [
-                    {
-                        label: 'Dataset 1',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        fill: false,
-                        borderColor: 'rgba(253, 237, 20)',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Dataset 2',
-                        data: [28, 48, 40, 19, 86, 27, 90],
-                        fill: false,
-                        borderColor: 'rgba(39, 51, 51, 1)',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Dataset 3',
-                        data: [12, 25, 60, 32, 45, 70, 50],
-                        fill: false,
-                        borderColor: 'rgb(253, 237, 150)',
-                        tension: 0.1
-                    }
-                ]
-            };
-
-            const configSecundario = {
-                type: 'line',
-                data: dataSecundario,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    scales: { y: { beginAtZero: true } }
-                }
-            };
-
-            new Chart(document.getElementById('graficoSecundario'), configSecundario);
-        })();
-        </script>
 
 
 
