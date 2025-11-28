@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('endereco_id')->constrained('enderecos');
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('responsavel')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('responsavel')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             
 
