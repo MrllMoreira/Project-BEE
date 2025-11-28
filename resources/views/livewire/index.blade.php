@@ -54,8 +54,8 @@
                         <canvas id="graficoSecundario" style="width: 100%;" height="240"></canvas>
 
                     </div>
-                    <div class="w-2/5 bg-[--canva] border border-[--border-gray-600] shadow-md rounded-xl h-60">
-
+                    <div class="w-2/5 bg-[--canva] border border-[--border-gray-600] shadow-md rounded-xl h-60 flex justify-center">
+                        <canvas id="grafico_doughnut" style="width: 100%;" height="240"></canvas>
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
 
                 new Chart(document.getElementById('graficoPrincipal'), configPrincipal);
             })();
-            </script>
+    </script>
 
     <script>
         (() => {
@@ -164,6 +164,36 @@
         </script>
 
 
+
+    <script>
+        (() => {
+            const labelsPrincipal = ['Utilizados', 'Danificados', 'Sem uso'];
+            const data = {
+                labels: labelsPrincipal,
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [300, 50, 50],
+                    backgroundColor: [
+                    'rgba(253, 237, 185, 1)',
+                    'rgb(0, 0, 0)',
+                    'rgb(255, 205, 86)',
+
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            const configPrincipal = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    scales: { y: { beginAtZero: true } }
+                }
+            };
+
+            new Chart(document.getElementById('grafico_doughnut'), configPrincipal);
+        })();
+    </script>
 
     </div>
     </div>

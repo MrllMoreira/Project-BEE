@@ -26,9 +26,9 @@
         <div class="fixed top-4 right-6 ">
             @livewire('profile')
         </div>
-        <div class="flex flex-col h-screen p-6 pt-20 bg-gray-300">
+        <div class="flex flex-col h-screen p-6 pt-20 bg-[--fundo-site]">
             <x-banner />
-            <div class="flex flex-1 overflow-hidden bg-white border border-gray-200 shadow-md rounded-2xl">
+            <div class="flex flex-1 overflow-hidden  border border-[--border-gray-200] shadow-md rounded-2xl">
                 @livewire('navigation-menu')
 
                 <div class="flex flex-col flex-1">

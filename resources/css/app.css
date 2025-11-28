@@ -43,6 +43,7 @@
     --nav-bg-hover: #273333;
     --nav-text-hover: #FDC029;
     --nav-text-gray-700: #374151;
+    --fundo-site: #D1D5DB;
  }
 
  :root[data-theme="dark"]{
@@ -56,7 +57,11 @@
     --nav-bg-hover: #ffffff;
     --nav-text-hover: #000000;
     --nav-text-gray-700: #dddddd;
+    --fundo-site: #05080f;
+
 }
+
+
 
 .table-wrapper {
     --table-bg: var(--white);
@@ -104,5 +109,5 @@
 
 /* BODY CINZA (usado no fundo da tabela) */
 .theme-body {
-    background: var(--gray-100);
+    background: var(--white);
 }
