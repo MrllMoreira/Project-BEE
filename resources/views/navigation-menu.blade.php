@@ -36,12 +36,14 @@
             <!-- NAV LINKS -->
             <div class="flex flex-col gap-3 text-sm">
 
-                <a href="{{ route('dashboard') }}"
+               @if(Auth::user()->unidade_id != null)
+                    <a href="{{ route('dashboard') }}"
                    class="{{ $aClass }} {{ $hoverClass }}
                           {{ $isActiveDashboard ? $activeClass : 'text-[--nav-text-gray-700]' }}">
-                    <x-ts-icon class="w-5 h-5" icon="chart-pie" outline/>
-                    Dashboard
-                </a>
+                        <x-ts-icon class="w-5 h-5" icon="chart-pie" outline/>
+                        Dashboard
+                    </a>
+               @endif
 
                 <a href="{{ route('documentos') }}"
                    class="{{ $aClass }} {{ $hoverClass }}
@@ -49,13 +51,15 @@
                     <x-ts-icon class="w-5 h-5" icon="document" outline/>
                     Documentos
                 </a>
-
-                <a href="{{ route('inventario', Auth::user()->unidade_id) }}"
-                   class="{{ $aClass }} {{ $hoverClass }}
-                          {{ $isActiveInventario ? $activeClass : 'text-[--nav-text-gray-700]' }}">
-                    <x-ts-icon class="w-5 h-5" icon="inbox-arrow-down" outline/>
-                    Inventário
-                </a>
+                
+               @if(Auth::user()->unidade_id != null)
+                    <a href="{{ route('inventario', ['idUnidade' => Auth::user()->unidade_id]) }}"
+                    class="{{ $aClass }} {{ $hoverClass }}
+                            {{ $isActiveInventario ? $activeClass : 'text-[--nav-text-gray-700]' }}">
+                        <x-ts-icon class="w-5 h-5" icon="inbox-arrow-down" outline/>
+                        Inventário
+                    </a>
+               @endif
 
                 @if (Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
                     <a href="{{ route('unidade') }}"
