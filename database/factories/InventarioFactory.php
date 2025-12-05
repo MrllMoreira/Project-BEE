@@ -18,9 +18,10 @@ class InventarioFactory extends Factory
                 'Inativo',
                 'Manutenção',
             ]),
-            'unidade_id'  => Unidade::factory(),
-            'created_by'  => User::factory(),
-            'updated_by'  => User::factory(),
+            'unidade_id'  => null,
+            'created_by'  => null,
+            'updated_by'  => null,
+
         ];
     }
 }

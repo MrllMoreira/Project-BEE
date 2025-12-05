@@ -13,8 +13,8 @@ use Livewire\Component;
 class InventarioIndex extends Component
 {
     use WithPagination;
-    public $quantity = 5; 
-    public $search = null; 
+    public $quantity = 5;
+    public $search = null;
     public $statusFilter = null;
     public $idUnidade;
     public $nome = " ";
@@ -38,21 +38,21 @@ class InventarioIndex extends Component
     public function dispatchOpenDeleteModal($id){
         $this->dispatch('dispatchOpenModalDeleteInventario', $id);
     }
-    
-    
+
+
 
     public function mount($idUnidade)
-    {   
+    {
         $this->idUnidade = $idUnidade;
         $unidade = Unidade::find($this->idUnidade);
         $this->nome = $unidade?->nome ?? '';
-        
+
     }
 
-    
+
     public function with(): array
    {
-        
+
         return [
             'headers' => [
                 ['index' => 'nome', 'label' => 'Nome'],
@@ -63,7 +63,7 @@ class InventarioIndex extends Component
             'rows' => Inventario::query()
                 ->where('unidade_id', $this->idUnidade)
                 ->when($this->search, function (Builder $query) {
-                    return $query->whereRaw('LOWER(inventario.nome)', 'like', "%{$this->search}%");
+                    return $query->whereRaw('LOWER(inventario.nome) LIKE ?', ["%{$this->search}%"]);
                 })
                 ->when($this->statusFilter, function (Builder $query) {
                     return $query->where('status', $this->statusFilter);
@@ -74,7 +74,7 @@ class InventarioIndex extends Component
         ];
     }
     public function render()
-    {        
+    {
         return view('livewire.inventario.inventario-index', $this->with());
     }
 

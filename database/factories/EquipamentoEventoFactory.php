@@ -11,8 +11,9 @@ class EquipamentoEventoFactory extends Factory
     public function definition(): array
     {
         return [
-            'evento_id' => Evento::factory(),
-            'equipamento_id' => Equipamento::factory(),
+           'evento_id' => null,
+            'equipamento_id' => null,
+
         ];
     }
 }

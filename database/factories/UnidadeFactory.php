@@ -7,17 +7,12 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories.Factory<\App\Models\Unidade>
  */
 class UnidadeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Unidade::class;
 
-     protected $model = Unidade::class;
     public function definition(): array
     {
         return [
@@ -30,7 +25,7 @@ class UnidadeFactory extends Factory
             'endereco_id' => rand(1, 10),
             'created_by' => null,
             'updated_by' => null,
-            'responsavel' => rand(1, 10),
+            'responsavel' => null,
         ];
     }
 }

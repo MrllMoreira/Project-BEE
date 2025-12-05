@@ -39,10 +39,8 @@ class EquipamentoFactory extends Factory
                 'Descartado'
             ]),
 
-            'inventario_id' => Inventario::factory(),
-            'created_by' => fake()->boolean(70)
-                ? User::factory()
-                : null,
+            'inventario_id' => null,
+            'created_by' => null,
         ];
     }
 }

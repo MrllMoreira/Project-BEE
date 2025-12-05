@@ -23,8 +23,8 @@ class EventoFactory extends Factory
                 'departamento' => fake()->word()
             ],
 
-            'evento_tipo_id' => EventoTipo::factory(),
-            'criado_por' => User::factory(),
+            'evento_tipo_id' => null,
+            'criado_por' => null,
         ];
     }
 }
